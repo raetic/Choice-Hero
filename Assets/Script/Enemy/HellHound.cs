@@ -28,7 +28,7 @@ public class HellHound : MonoBehaviour
     {
         if (myEnemy.isMove)
         {
-            transform.Translate(Vector2.left * v * 4 * Time.deltaTime);
+            transform.Translate(Vector2.left * v * 2 * Time.deltaTime);
             t += Time.deltaTime;
             if (t > r)
             {

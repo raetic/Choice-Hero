@@ -25,13 +25,16 @@ public class Player : MonoBehaviour
     int Level;
     float curExp;
     float maxExp;
+    SkillManager SM;
     private void Start()
     {   attackSpeed = 1.5f;
         rigid = GetComponent<Rigidbody2D>();
-        StartCoroutine("AttackCor");
+        SM = GetComponent<SkillManager>();
+        StartCoroutine("AttackCor");       
         Hp = maxHp;
         Level = 1;
         maxExp = 70;
+        //SM.InstBolt();
     }
     IEnumerator AttackCor()
     {
@@ -43,6 +46,10 @@ public class Player : MonoBehaviour
           
           
             yield return new WaitForSeconds(0.1f);
+            if (SM.smash > 1)
+            {
+                SM.InstSmash();
+            }
             myWeapon.SetActive(true);
             yield return new WaitForSeconds(0.2f);
             myWeapon.SetActive(false);

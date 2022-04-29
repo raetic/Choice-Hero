@@ -18,5 +18,6 @@ public class Exp : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 10 * Time.deltaTime);
         }
+        if (transform.position.y < -10) Destroy(gameObject);
     }
 }

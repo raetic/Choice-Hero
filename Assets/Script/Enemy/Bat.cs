@@ -16,19 +16,19 @@ public class Bat : MonoBehaviour
     void Think()
     {
         Invoke("Think", 0.5f);
-        random = Random.Range(-2, 1);
+        random = Random.Range(0, 4);
     }
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position + new Vector3(0, random), 3*Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, player.transform.position + new Vector3(0, random), 2*Time.deltaTime);
         if (transform.position.x > player.transform.position.x)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            GetComponent<SpriteRenderer>().flipX = true;
         }
         else
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            GetComponent<SpriteRenderer>().flipX = false;
         }
     }
 }

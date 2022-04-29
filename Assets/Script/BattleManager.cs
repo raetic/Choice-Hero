@@ -11,6 +11,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject bat;
     bool bossFhase;
     [SerializeField] TextMeshProUGUI timeT;
+    [SerializeField] GameObject[] SpawnPoint;
     void Start()
     {
         StartCoroutine("SpawnCor");
@@ -20,7 +21,7 @@ public class BattleManager : MonoBehaviour
         int batCount=0;
         while (!bossFhase)
         {
-           /* if (gameTime <= 60)
+          /* if (gameTime <= 60)
             {
                 int rand = Random.Range(0, 2);
                 if (rand == 0) rand = -1;
@@ -33,16 +34,16 @@ public class BattleManager : MonoBehaviour
                 if (batCount != 3)
                 {
                     int rand = Random.Range(0, 2);
-                    if (rand == 0) rand = -1;
-                    GameObject HellHound = Instantiate(hellHound, new Vector3(curCenter + 40 * rand, -3), transform.rotation);
-                    if (rand == -1) HellHound.GetComponent<HellHound>().GoRight();
+                   
+                    GameObject HellHound = Instantiate(hellHound, SpawnPoint[rand].transform.position, transform.rotation);
+                    if (rand == 0) HellHound.GetComponent<HellHound>().GoRight();
                     batCount++;
                 }
                 else if (batCount == 3)
                 {
                     int rand = Random.Range(0, 2);
-                    if (rand == 0) rand = -1;
-                    GameObject Bat = Instantiate(bat, new Vector3(curCenter + 40 * rand, -3), transform.rotation);
+                    
+                    GameObject Bat = Instantiate(bat, SpawnPoint[rand].transform.position, transform.rotation);
                     batCount = 0;
                 }
                 yield return new WaitForSeconds(1);

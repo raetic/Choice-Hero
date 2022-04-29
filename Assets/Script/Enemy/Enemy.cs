@@ -45,6 +45,7 @@ public class Enemy : MonoBehaviour
         {   
             rigid.AddForce(new Vector2(transform.position.x - collision.transform.position.x,0).normalized*150);
             isMove = false;
+            collision.gameObject.GetComponent<Attack>().Conflict();
             int d = collision.gameObject.GetComponent<Attack>().GetDmg();
             GameObject dmg2 = Instantiate(dmg, transform.position+new Vector3(0,0.5f), transform.rotation);
             dmg2.GetComponent<Dmg>().SetText(d,false);
