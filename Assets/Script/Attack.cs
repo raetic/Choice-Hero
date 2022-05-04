@@ -30,7 +30,7 @@ public class Attack : MonoBehaviour
     }
     public void SetDestroyCount(int i)
     {
-        destroyCount=i;
+        destroyCount+=i;
     }
     public void DmgX(float a)
     {

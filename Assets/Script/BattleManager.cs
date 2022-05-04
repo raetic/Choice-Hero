@@ -12,38 +12,44 @@ public class BattleManager : MonoBehaviour
     bool bossFhase;
     [SerializeField] TextMeshProUGUI timeT;
     [SerializeField] GameObject[] SpawnPoint;
+    [SerializeField] LevelUp levelUp;
+    
     void Start()
     {
         StartCoroutine("SpawnCor");
+    }
+    public void LvUp()
+    {
+        levelUp.PopupOn();
     }
     IEnumerator SpawnCor()
     {
         int batCount=0;
         while (!bossFhase)
         {
-          /* if (gameTime <= 60)
+           if (gameTime <= 60)
             {
                 int rand = Random.Range(0, 2);
-                if (rand == 0) rand = -1;
-                GameObject HellHound = Instantiate(hellHound, new Vector3(curCenter + 40 * rand, -3), transform.rotation);
-                if (rand == -1) HellHound.GetComponent<HellHound>().GoRight();
+               
+                GameObject HellHound = Instantiate(hellHound, SpawnPoint[rand].transform.position, transform.rotation);
+                if (rand == 0) HellHound.GetComponent<HellHound>().GoRight();
                 yield return new WaitForSeconds(2);
             }
-            else*/ if (gameTime <= 120)
+            else if (gameTime <= 120)
             {
                 if (batCount != 3)
                 {
                     int rand = Random.Range(0, 2);
                    
-                    GameObject HellHound = Instantiate(hellHound, SpawnPoint[rand].transform.position, transform.rotation);
-                    if (rand == 0) HellHound.GetComponent<HellHound>().GoRight();
+                   GameObject HellHound = Instantiate(hellHound, SpawnPoint[rand].transform.position, transform.rotation);
+                   if (rand == 0) HellHound.GetComponent<HellHound>().GoRight();
                     batCount++;
                 }
                 else if (batCount == 3)
                 {
                     int rand = Random.Range(0, 2);
                     
-                    GameObject Bat = Instantiate(bat, SpawnPoint[rand].transform.position, transform.rotation);
+                  GameObject Bat = Instantiate(bat, SpawnPoint[rand].transform.position, transform.rotation);
                     batCount = 0;
                 }
                 yield return new WaitForSeconds(1);

@@ -26,14 +26,18 @@ public class Player : MonoBehaviour
     float curExp;
     float maxExp;
     SkillManager SM;
+    Stat stat;
+    BattleManager BM;
     private void Start()
-    {   attackSpeed = 1.5f;
+    {   
         rigid = GetComponent<Rigidbody2D>();
         SM = GetComponent<SkillManager>();
-        StartCoroutine("AttackCor");       
+        stat = GetComponent<Stat>();
+        BM = GameObject.Find("BattleManager").GetComponent<BattleManager>();
         Hp = maxHp;
         Level = 1;
-        maxExp = 70;
+        maxExp = 70;       
+        StartCoroutine("AttackCor");
         //SM.InstBolt();
     }
     IEnumerator AttackCor()
@@ -46,93 +50,105 @@ public class Player : MonoBehaviour
           
           
             yield return new WaitForSeconds(0.1f);
-            if (SM.smash > 1)
-            {
-                SM.InstSmash();
-            }
+            
+            SM.InstSmash();
+            
             myWeapon.SetActive(true);
             yield return new WaitForSeconds(0.2f);
             myWeapon.SetActive(false);
-            yield return new WaitForSeconds(1/attackSpeed-0.3f);
+            yield return new WaitForSeconds(1.5f-(stat.AttackSpeed*-0.15f)-0.3f);
         }
     }
     // Update is called once per frame
+    private void FixedUpdate()
+    {
+       
+        float a = (Hp / maxHp) * 0.8f;
+        hpImage.fillAmount = Mathf.Lerp(hpImage.fillAmount, a + 0.1f, Time.deltaTime * 5f);
+        greenImage.fillAmount = Mathf.Lerp(greenImage.fillAmount, curExp / maxExp, Time.deltaTime * 5f);
+        KeyboardUse();
+    }
+    public void HpUp(float value)
+    {
+        Hp += value;
+        if (Hp > maxHp) Hp = maxHp;
+    }
     void KeyboardUse()
     {
+        hpBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1f);
+        if (Time.timeScale == 0) return;
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            transform.Translate(Vector2.left * 0.01f * speed);
+            transform.Translate(Vector2.left * 0.07f * (1 + 0.15f * stat.Speed));
             anim.SetFloat("RunState", 0.5f);
             transform.localScale = new Vector2(1, 1);
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
-            transform.Translate(Vector2.right * 0.01f * speed);
+            transform.Translate(Vector2.right * 0.07f * (1+0.15f*stat.Speed));
             transform.localScale = new Vector2(-1, 1);
             anim.SetFloat("RunState", 0.5f);
         }
         else
         {
-            anim.SetFloat("RunState", 0f);
+            anim.SetFloat("RunState", 0);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && maxJumpCount > curJumpCount)
+       
+          
+    }
+   
+    void Update()
+    {
+      
+        if (Input.GetKeyDown(KeyCode.Space) && (1+stat.JumpCount) > curJumpCount)
         {
             curJumpCount++;
             rigid.velocity = Vector2.zero;
             rigid.AddForce(Vector2.up * jumpPower);
         }
-    }
-    void FindExp()
-    {
-        Collider2D[] colls = Physics2D.OverlapCircleAll(transform.position, farming,expLayer);
-        if (colls.Length > 0)
-        {
-           foreach(var i in colls)
-            {
-                i.GetComponent<Exp>().ComeTo(gameObject);
-            }
-        }
-    }
-    void Update()
-    {
-        hpBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1f);
-        float a = (Hp / maxHp) * 0.8f;
        
-        hpImage.fillAmount = Mathf.Lerp(hpImage.fillAmount, a+0.1f, Time.deltaTime * 5f);
-        greenImage.fillAmount = Mathf.Lerp(greenImage.fillAmount, curExp / maxExp, Time.deltaTime * 5f);
-        KeyboardUse();
-        FindExp();
+
     }
     public void onHit(int dmg)
     {
+        
+        dmg = Mathf.RoundToInt(dmg * (1-0.1f*stat.AttackedDmg));      
         GameObject Dmg = Instantiate(dmgPr, transform.position + new Vector3(0, 1.5f), transform.rotation);
         Dmg.GetComponent<Dmg>().SetText(dmg,true);
         Hp -= dmg;
     }
-    public void ExpUp(int mount)
+    public void ExpUp(float mount)
     {
-        curExp += mount;
-        curExp += mount;
+        
+        curExp += Mathf.RoundToInt(mount*(1+0.1f*stat.Exp));
         if (curExp > maxExp)
-        {
-            LevelUp();
+        {           
+            LevelUp();           
         }
     }
     public void LevelUp()
     {
         Level++;
         levelT.text = "LV:"+Level;
+        BM.LvUp();
+        float v = curExp - maxExp;
+      
         curExp = 0;
         maxExp += 30;
+        ExpUp(v);
     }
-    private void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
+       
         if (collision.gameObject.tag == "Back") curJumpCount = 0;
+       
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
         if (collision.gameObject.tag == "Exp")
         {
             ExpUp(collision.gameObject.GetComponent<Exp>().mount);
             Destroy(collision.gameObject);
         }
     }
-    
 }

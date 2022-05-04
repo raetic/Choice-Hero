@@ -7,17 +7,20 @@ public class Exp : MonoBehaviour
     public int mount;
     bool come;
     GameObject target;
-    public void ComeTo(GameObject t)
+    float time;
+    public void Start()
     {
-        target = t;
-        come = true;
+        target = GameObject.FindGameObjectWithTag("Player");
+    }
+    public void setMount(int mo)
+    {
+        mount = mo;
     }
     private void Update()
     {
-        if (come)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 10 * Time.deltaTime);
-        }
-        if (transform.position.y < -10) Destroy(gameObject);
+        time += Time.deltaTime;
+        if (time > 0.5f)
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 8*time * Time.deltaTime);
+        
     }
 }

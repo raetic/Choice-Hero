@@ -11,7 +11,7 @@ public class MainCamera : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player");
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         transform.position = new Vector3(player.transform.position.x, -1, -10);
     }

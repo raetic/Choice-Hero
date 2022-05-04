@@ -8,6 +8,7 @@ TagManager:
   - Back
   - Enemy
   - Exp
+  - potion
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Enemy
   - Player
   - Exp
-  - 
+  - Potion
   - 
   - 
   - 

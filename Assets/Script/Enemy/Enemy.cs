@@ -9,9 +9,10 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject dmg;
     Rigidbody2D rigid;
     [SerializeField] int Atk;
-    [SerializeField] int expCount;
+    [SerializeField] int expMount;
     public bool isMove;
     [SerializeField] GameObject exp;
+    [SerializeField] GameObject[] potion;
     void Start()
     {
         
@@ -29,11 +30,21 @@ public class Enemy : MonoBehaviour
     }
     public void Die()
     {
-        for(int i = 0; i < expCount; i++)
-        {
-            GameObject e = Instantiate(exp, transform.position, transform.rotation);
-            e.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-50,50),50));
+      
+        GameObject e = Instantiate(exp, transform.position, transform.rotation);
+        e.GetComponent<Exp>().setMount(expMount);
 
+        int rand = Random.Range(0, 100);
+        if (rand <= 2)
+        {
+            if (rand == 0)
+            {
+                GameObject potion1 = Instantiate(potion[0], transform.position, transform.rotation);
+            }
+            else
+            {
+                GameObject potion1 = Instantiate(potion[1], transform.position, transform.rotation);
+            }
         }
         Destroy(gameObject);
     }
@@ -50,14 +61,11 @@ public class Enemy : MonoBehaviour
             GameObject dmg2 = Instantiate(dmg, transform.position+new Vector3(0,0.5f), transform.rotation);
             dmg2.GetComponent<Dmg>().SetText(d,false);
             OnHit(d);
+            Invoke("SetRigid", 0.1f);
         }
     }
-    /* private void OncollisionEnter2D(Collider2D collision)
-     {
-         if (collision.gameObject.tag == "Attack")
-         {
-             Debug.Log("피격");
-             OnHit(collision.gameObject.GetComponent<Attack>().GetDmg());
-         }
-     }*/
+ void SetRigid()
+    {
+        rigid.velocity = Vector2.zero;
+    }
 }
