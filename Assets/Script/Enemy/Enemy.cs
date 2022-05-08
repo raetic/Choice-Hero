@@ -31,9 +31,11 @@ public class Enemy : MonoBehaviour
     {
         return Atk;
     }
-    void OnHit(int dmg)
+    public void OnHit(int dmgf)
     {
-        hp -= dmg;
+        GameObject dmg2 = Instantiate(dmg, transform.position + new Vector3(0, 0.5f), transform.rotation);
+        dmg2.GetComponent<Dmg>().SetText(dmgf, false);
+        hp -= dmgf;
         if (hp <= 0) Die();
     }
     public void Die()
@@ -69,12 +71,13 @@ public class Enemy : MonoBehaviour
         
         if (collision.gameObject.tag == "Attack")
         {
-            rigid.AddForce(new Vector2(transform.position.x - collision.transform.position.x,0).normalized*150);
-            isMove = false;
+            if (!collision.gameObject.GetComponent<Attack>().notPush)
+            {
+                rigid.AddForce(new Vector2(transform.position.x - collision.transform.position.x, 0).normalized * 150);
+                isMove = false;
+            }
             collision.gameObject.GetComponent<Attack>().Conflict();
             int d = collision.gameObject.GetComponent<Attack>().GetDmg();
-            GameObject dmg2 = Instantiate(dmg, transform.position+new Vector3(0,0.5f), transform.rotation);
-            dmg2.GetComponent<Dmg>().SetText(d,false);
             OnHit(d);
             Invoke("SetRigid", 0.1f);
         }

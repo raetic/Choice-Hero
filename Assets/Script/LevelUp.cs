@@ -195,6 +195,7 @@ public class LevelUp : MonoBehaviour
         if (magic == 10)
         {
             UpList.Add(11);
+            UpList.Add(13);
         }
     }
     public void PhysicsUp()
@@ -212,6 +213,11 @@ public class LevelUp : MonoBehaviour
             UpList.Add(104);
             UpList.Add(7);
             UpList.Add(9);
+        }
+        if (physics == 10)
+        {
+            UpList.Add(12);
+            UpList.Add(14);
         }
     }
 }
@@ -250,7 +256,7 @@ class Data
             this.type = type;
         }
     }
-    public skilldata[] skillData = new skilldata[12]
+    public skilldata[] skillData = new skilldata[15]
    {
         new skilldata("검술","기본 공격이 강화됩니다.",0),
         new skilldata("물결 파동","직진으로 뻗는 파동을 생성합니다.",1),
@@ -264,5 +270,8 @@ class Data
           new skilldata("칼춤","주변을 보호하는 칼을 생성합니다.",0),
            new skilldata("대지의 분노","적을 띄우는 땅의 정령을 소환합니다.",1),
             new skilldata("신성한 빛","가장 가까운 적에게 성스로운 빛을 떨어뜨립니다.",1),
+            new skilldata("지진","거대한 망치를 땅에 내리쳐 주변 적을 공중에 띄웁니다.",0),
+            new skilldata("토네이도","통제되지 않는 거대한 토네이도를 생성합니다.",1),
+            new skilldata("검술2","기본 공격을 할 때마다 주변 적을 베어버립니다.",0),
    };
 }

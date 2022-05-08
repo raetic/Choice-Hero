@@ -1045,6 +1045,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: a5108b9cfec7c4485a10fca61d8a2758, type: 3}
   - {fileID: 1344253240767031289, guid: c38598a663f64e542bd1e6f192577edf, type: 3}
   - {fileID: 8192528919813170734, guid: c4b134e516ccacb4f917becefe4e26a8, type: 3}
+  - {fileID: 21300000, guid: 02ef628e3a5a14cc39a3ab55fbb2f487, type: 3}
 --- !u!1 &117252154
 GameObject:
   m_ObjectHideFlags: 0
@@ -2852,6 +2853,7 @@ MonoBehaviour:
   isWood: 0
   StartTime: 0
   isNin: 0
+  notPush: 0
 --- !u!61 &383550986
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8569,6 +8571,7 @@ MonoBehaviour:
   isWood: 0
   StartTime: 0
   isNin: 0
+  notPush: 0
 --- !u!61 &1251104561
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8720,7 +8723,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.59, y: 0.3}
+  m_AnchoredPosition: {x: -0.59, y: 0.33}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1270210206
@@ -11267,6 +11270,11 @@ MonoBehaviour:
     type: 3}
   holyPrefebs: {fileID: 7280629291968563003, guid: 90ded93de9d1e4747a7dfbf5c09c28bf,
     type: 3}
+  hammerPrefebs: {fileID: 2237803564425952872, guid: 97e4ceba95b08324c836def5cb2a9c5a,
+    type: 3}
+  TonadoPrefebs: {fileID: 1176928205739640438, guid: 1e18ec2b271951e4e90422fb6f72bf9a,
+    type: 3}
+  Claw: {fileID: 295253500871905119, guid: ff78b8e15a340964f94a7fa12ee77600, type: 3}
   enemyMask:
     serializedVersion: 2
     m_Bits: 256
@@ -11588,6 +11596,7 @@ MonoBehaviour:
   isWood: 0
   StartTime: 0
   isNin: 0
+  notPush: 0
 --- !u!61 &1731514673
 BoxCollider2D:
   m_ObjectHideFlags: 0

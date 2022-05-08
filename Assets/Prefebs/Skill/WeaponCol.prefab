@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3915077498753053761}
   m_LocalRotation: {x: -0, y: 0.008726557, z: -0, w: 0.9999619}
   m_LocalPosition: {x: 0, y: 0, z: 1.0135256}
-  m_LocalScale: {x: 0.6, y: 0.8000001, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.8000001, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -49,6 +49,11 @@ MonoBehaviour:
   AttackTime: 0
   destroyCount: 0
   isDestroy: 0
+  n: 0
+  isWood: 0
+  StartTime: 0
+  isNin: 0
+  notPush: 0
 --- !u!61 &3915077498753053763
 BoxCollider2D:
   m_ObjectHideFlags: 0

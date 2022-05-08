@@ -21,6 +21,9 @@ public class SkillManager : MonoBehaviour
             swordDance=9,
             rageGround=10,
             holy=11,
+            hammer=12,
+            tonado=13,
+            claw=14,
     }
 
     [SerializeField] GameObject smashPrefebs;
@@ -37,6 +40,9 @@ public class SkillManager : MonoBehaviour
     [SerializeField] GameObject swordDance;
     [SerializeField] GameObject groundPrefebs;
     [SerializeField] GameObject holyPrefebs;
+    [SerializeField] GameObject hammerPrefebs;
+    [SerializeField] GameObject TonadoPrefebs;
+    [SerializeField] GameObject Claw;
     Stat stat;
     [SerializeField] LayerMask enemyMask;
 
@@ -48,7 +54,7 @@ public class SkillManager : MonoBehaviour
         player = GetComponent<Player>();
         stat = GetComponent<Stat>();
         skills[0] = 1;
-        //InstHoly();
+        
     }
     public void InstSkill(int s)
     {
@@ -62,10 +68,14 @@ public class SkillManager : MonoBehaviour
         if (s == 8) InstIce();
         if (s == 10) InstRageGround();
         if (s == 11) InstHoly();
+        if (s == 12) InstHammer();
+        if (s == 13) InstTonado();
     }
     public void InstSmash()
-    {if (skills[0] <2) return;
-   
+    {
+        if (skills[14] > 0) InstClaw();
+        if (skills[0] <2) return;
+        
         GameObject newObj = Instantiate(smashPrefebs, weapon.transform.position, transform.rotation);
         newObj.GetComponent<Attack>().DmgX(1+0.2f*stat.PhysicsDmg);
         if (skills[(int)skill.smash] > 2)
@@ -294,7 +304,7 @@ public class SkillManager : MonoBehaviour
         }
             Obj.transform.localScale *= scale;
             Obj.GetComponent<Attack>().SetDestroyCount(pen);
-            Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+            Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.PhysicsDmg));
         
         Invoke("InstNinja", cool / (1 + 0.2f * stat.Cooltime));
     }
@@ -320,7 +330,7 @@ public class SkillManager : MonoBehaviour
         GameObject Obj = Instantiate(axPrefebs, player.transform.position + new Vector3(0, 0.5f), transform.rotation);
         Obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(player.transform.localScale.x * -1 * speed, 0));     
         Obj.transform.localScale *= scale;
-        Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+        Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.PhysicsDmg));
        StartCoroutine(ReAx(cool / (1 + stat.Cooltime)));
     }
    IEnumerator ReAx(float cool)
@@ -470,5 +480,88 @@ public class SkillManager : MonoBehaviour
             Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
             yield return new WaitForSeconds(1);
         }
+    }
+    public void InstHammer()
+    {
+        if (transform.position.y > -4)
+        {
+            Invoke("InstHammer", 1);
+            return;
+        }
+        int no = 12;
+        float cool = 7;
+        float dmg = 4;
+        float upPower = 300;
+        int size = 4;
+        if (skills[no] > 1) size = 5;
+        if (skills[no] > 2) upPower += 100;
+        if (skills[no] > 3) dmg *= 1.3f;
+        if (skills[no] > 4) size = 6;
+        if (skills[no] > 5) upPower += 100;
+        if (skills[no] > 6) cool -= 2;
+        if (skills[no] > 7) size = 7;
+        if (skills[no] > 8) upPower += 100;
+        if (skills[no] > 9) dmg *= 1.3f;
+        GameObject Obj = Instantiate(hammerPrefebs, transform.position+new Vector3(0,0.5f), Quaternion.Euler(0,0,45));
+        Obj.GetComponent<Turn>().startRotate = 45;
+        if (transform.localScale.x < 0) Obj.GetComponent<Turn>().rotateSpeed *= -1;
+        Obj.transform.GetChild(0).GetComponent<Hammer>().setting(size, dmg * (1 + 0.2f * stat.PhysicsDmg), upPower);
+        
+        Invoke("InstHammer", cool / (1 + stat.Cooltime));
+    }
+    public void InstTonado()
+    {
+       
+        int no = 13;
+        float cool = 15;
+        float dmg = 1;
+        float speed = 1;
+        float time = 5;
+        float scale = 1;
+        if (skills[no] > 1) time+=1;
+        if (skills[no] > 2) dmg*=1.2f;
+        if (skills[no] > 3) speed*=1.5f;
+        if (skills[no] > 4) scale*=1.3f;
+        if (skills[no] > 5) dmg*=1.2f;
+        if (skills[no] > 6) cool -= 3;
+        if (skills[no] > 7) speed*=1.5f;
+        if (skills[no] > 8) scale*=1.3f;
+        if (skills[no] > 9) time+=2;
+        GameObject Obj = Instantiate(TonadoPrefebs, new Vector3(transform.position.x, -3f+(scale-1)*1.3f), transform.rotation);
+        Obj.transform.GetComponent<Tonado>().destroyTime = time;
+        Obj.GetComponent<Tonado>().speed = speed;
+        Obj.transform.localScale *= scale;
+        Obj.transform.GetChild(0).GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+
+        Invoke("InstTonado", cool / (1 + stat.Cooltime));
+    }
+    public void InstClaw()
+    {
+
+        int no = 14;
+        float dmg = 3;
+        int n = 1;
+        float size = 3;
+        if (skills[no] > 1) dmg *= 1.2f;
+        if (skills[no] > 2) size = 4;
+        if (skills[no] > 3) n++;
+        if (skills[no] > 4) dmg *= 1.2f;
+        if (skills[no] > 5) size = 5;
+        if (skills[no] > 6) n++;
+        if (skills[no] > 7) dmg *= 1.2f;
+        if (skills[no] > 8) size = 7;
+        if (skills[no] > 9) n++;
+        Collider2D[] cols = Physics2D.OverlapBoxAll(transform.position, new Vector2(size, size), 0, enemyMask);
+        var nearObj = cols.OrderBy(obj =>
+        {
+            return Vector3.Distance(transform.position, obj.gameObject.transform.position);
+        }).ToList();
+        for(int i = 0; i < nearObj.Count; i++)
+        {
+            if (i == n) break;
+            nearObj[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt(dmg*(1+stat.PhysicsDmg*0.2f)));
+            GameObject Obj = Instantiate(Claw, nearObj[i].transform.position, transform.rotation);
+        }
+
     }
 }

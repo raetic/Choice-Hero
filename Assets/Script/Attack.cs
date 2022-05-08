@@ -13,6 +13,7 @@ public class Attack : MonoBehaviour
     [SerializeField] bool isWood;
     [SerializeField] float StartTime;
     [SerializeField] bool isNin;
+    public bool notPush;
     private void Start()
     {
         if (DestroyTime > 0)
@@ -28,6 +29,10 @@ public class Attack : MonoBehaviour
             gameObject.SetActive(false);
             Invoke("BeA", StartTime);
         }
+    }
+    public void SetDestroyTime(float t)
+    {
+        DestroyTime = t;
     }
     public void setN(int i)
     {

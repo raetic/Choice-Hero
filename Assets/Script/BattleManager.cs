@@ -19,7 +19,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject[] FlySpawnPoint;
     public int LvUpCount;
     public bool bossPhase;
-
+    [SerializeField] GameObject exploPrefebs;
     void Start()
     {
         StartCoroutine("Phase1");
@@ -38,6 +38,7 @@ public class BattleManager : MonoBehaviour
             if (rand == 0) Hound.GetComponent<HellHound>().GoRight();
             yield return new WaitForSeconds(2);
         }
+      
         while (gameTime < 60)
         {
             int rand = Random.Range(0, 2);
@@ -118,7 +119,7 @@ public class BattleManager : MonoBehaviour
         while (gameTime < 300)
         {
             p++;
-            if (p % 3 == 0)
+            if (p % 10 == 0)
             {
                 int rand = Random.Range(0, 2);
                 GameObject n = Instantiate(warm, SpawnPoint[rand].transform.position, transform.rotation);
@@ -139,11 +140,21 @@ public class BattleManager : MonoBehaviour
         }
         StartCoroutine("Boss1");
     }
+    public void BossSummon()
+    {
+        GameObject[] Enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        for (int i = Enemys.Length - 1; i >= 0; i--)
+        {
+            GameObject obj = Instantiate(exploPrefebs, Enemys[i].transform.position, transform.rotation);
+            Destroy(Enemys[i]);
+        }
+    }
     IEnumerator Boss1()
     {
+        BossSummon();
         bossPhase = true;
         int rand = Random.Range(0, 2);
-        GameObject Hound = Instantiate(boss[0], FlySpawnPoint[rand+2].transform.position, transform.rotation);
+        GameObject b = Instantiate(boss[0], FlySpawnPoint[rand+2].transform.position, transform.rotation);
         while (bossPhase)
         {
             yield return new WaitForSeconds(1);

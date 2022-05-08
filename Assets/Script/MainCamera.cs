@@ -5,6 +5,7 @@ using UnityEngine;
 public class MainCamera : MonoBehaviour
 {
     [SerializeField] GameObject player;
+    bool isEarthQ;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -25,10 +26,27 @@ public class MainCamera : MonoBehaviour
         camera.rect = rect;
        
     }
-
+    public void EQ()
+    {
+        isEarthQ = true;
+        Invoke("EQoff", 0.2f);
+    }
+    public void EQoff()
+    {
+        isEarthQ = false;
+    }
     void OnPreCull() => GL.Clear(true, true, Color.black);
     void FixedUpdate()
-    {
+    {   if(!isEarthQ)
         transform.position = new Vector3(player.transform.position.x, -1.5f, -10);
+        else
+        {
+            
+            float rand1 = Random.Range(-50, 50);
+   
+            float rand2 = Random.Range(-50, 50);
+            transform.position = new Vector3(player.transform.position.x+rand1/200, -1.5f+rand2/200, -10);
+
+        }
     }
 }
