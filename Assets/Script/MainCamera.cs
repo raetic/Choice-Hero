@@ -5,14 +5,30 @@ using UnityEngine;
 public class MainCamera : MonoBehaviour
 {
     [SerializeField] GameObject player;
-
-    private void Start()
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        Camera camera = GetComponent<Camera>();
+        Rect rect = camera.rect;
+        float scaleheight = ((float)Screen.width / Screen.height) / ((float)16 / 9); // (가로 / 세로)
+        float scalewidth = 1f / scaleheight;
+        if (scaleheight < 1)
+        {
+            rect.height = scaleheight;
+            rect.y = (1f - scaleheight) / 2f;
+        }
+        else
+        {
+            rect.width = scalewidth;
+            rect.x = (1f - scalewidth) / 2f;
+        }
+        camera.rect = rect;
+       
     }
-    // Update is called once per frame
+
+    void OnPreCull() => GL.Clear(true, true, Color.black);
     void FixedUpdate()
     {
-        transform.position = new Vector3(player.transform.position.x, -1, -10);
+        transform.position = new Vector3(player.transform.position.x, -1.5f, -10);
     }
 }

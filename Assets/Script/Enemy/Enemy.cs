@@ -13,6 +13,14 @@ public class Enemy : MonoBehaviour
     public bool isMove;
     [SerializeField] GameObject exp;
     [SerializeField] GameObject[] potion;
+    [SerializeField] bool isBoss;
+    bool isAir;
+    public void Air(float p)
+    {
+        rigid.AddForce(Vector2.up * p);
+        isAir = true;
+        isMove = false;
+    }
     void Start()
     {
         
@@ -33,18 +41,25 @@ public class Enemy : MonoBehaviour
       
         GameObject e = Instantiate(exp, transform.position, transform.rotation);
         e.GetComponent<Exp>().setMount(expMount);
-
-        int rand = Random.Range(0, 100);
-        if (rand <= 2)
+        if (!isBoss)
         {
-            if (rand == 0)
+            int rand = Random.Range(0, 100);
+            if (rand <= 2)
             {
-                GameObject potion1 = Instantiate(potion[0], transform.position, transform.rotation);
+                if (rand == 0)
+                {
+                    GameObject potion1 = Instantiate(potion[0], transform.position, transform.rotation);
+                }
+                else
+                {
+                    GameObject potion1 = Instantiate(potion[1], transform.position, transform.rotation);
+                }
             }
-            else
-            {
-                GameObject potion1 = Instantiate(potion[1], transform.position, transform.rotation);
-            }
+        }
+        else
+        {
+            GameObject potion1 = Instantiate(potion[0], transform.position, transform.rotation);
+            GameObject.Find("BattleManager").GetComponent<BattleManager>().bossPhase = false;
         }
         Destroy(gameObject);
     }
@@ -53,7 +68,7 @@ public class Enemy : MonoBehaviour
     {
         
         if (collision.gameObject.tag == "Attack")
-        {   
+        {
             rigid.AddForce(new Vector2(transform.position.x - collision.transform.position.x,0).normalized*150);
             isMove = false;
             collision.gameObject.GetComponent<Attack>().Conflict();
@@ -67,5 +82,12 @@ public class Enemy : MonoBehaviour
  void SetRigid()
     {
         rigid.velocity = Vector2.zero;
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Back"&&isAir) {
+            isAir = false;
+            isMove = true;
+        };
     }
 }

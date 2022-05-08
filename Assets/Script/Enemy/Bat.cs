@@ -6,11 +6,13 @@ public class Bat : MonoBehaviour
 {
     GameObject player;
     int random;
+    Enemy myEnemy;
     void Start()
     {
         random= Random.Range(-2, 1);
         player = GameObject.FindGameObjectWithTag("Player");
         Invoke("Think", 0.5f);
+        myEnemy = GetComponent<Enemy>();
     }
 
     void Think()
@@ -21,14 +23,17 @@ public class Bat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, player.transform.position + new Vector3(0, random), 2*Time.deltaTime);
-        if (transform.position.x > player.transform.position.x)
+        if (myEnemy.isMove)
         {
-            GetComponent<SpriteRenderer>().flipX = true;
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().flipX = false;
+            transform.position = Vector3.MoveTowards(transform.position, player.transform.position + new Vector3(0, random), 2 * Time.deltaTime);
+            if (transform.position.x > player.transform.position.x)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
         }
     }
 }

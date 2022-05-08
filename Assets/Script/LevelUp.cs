@@ -13,23 +13,8 @@ public class LevelUp : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] lv;
     [SerializeField] TextMeshProUGUI[] type;
     Data data = new Data();
-    enum skill
-    {
-        smash,
-        wave,
-        bolt,
-    }
-    enum stat
-    {
-        jump,
-        physicsDmg,
-        magicDmg,
-        cooltime,
-        attackSpeed,
-        attackedDmg,
-        exp,
-        speed,
-    }
+    BattleManager BM;
+
     int[] skills = new int[30];
     int[] stats = new int[30];
     [SerializeField] Sprite[] statIcon;
@@ -43,6 +28,7 @@ public class LevelUp : MonoBehaviour
     {
         sm = GameObject.FindWithTag("Player").GetComponent<SkillManager>();
         st = GameObject.FindWithTag("Player").GetComponent<Stat>();
+        BM = GameObject.Find("BattleManager").GetComponent<BattleManager>();
         UpList.Add(0);
         UpList.Add(1);
         UpList.Add(2);
@@ -126,6 +112,7 @@ public class LevelUp : MonoBehaviour
     }
     public void SelectReward(int rew)
     {
+
         if (curReward[rew] >= 100)
         {
             StatUp(curReward[rew] - 100);
@@ -134,8 +121,16 @@ public class LevelUp : MonoBehaviour
         {
             SkillUp(curReward[rew]);
         }
-        gameObject.SetActive(false);
-        Time.timeScale = 1;
+        BM.LvUpCount--;
+        if (BM.LvUpCount == 0)
+        {
+            gameObject.SetActive(false);
+            Time.timeScale = 1;
+        }
+        else
+        {
+            PopupOn();
+        }
     }
     public void StatUp(int stat)
     {
@@ -156,9 +151,14 @@ public class LevelUp : MonoBehaviour
     }
     public void SkillUp(int skill)
     {
+  
         if (sm.Skills[skill] == 0)
         {
             sm.InstSkill(skill);
+        }
+        if (skill == 9)
+        {
+            sm.SmashDanceLevelUp(sm.Skills[skill]);
         }
         if (data.skillData[skill].type == 0) PhysicsUp();
         if (data.skillData[skill].type == 1) MagicUp();
@@ -184,6 +184,17 @@ public class LevelUp : MonoBehaviour
         if (magic == 3)
         {
             UpList.Add(103);
+            UpList.Add(3);
+            UpList.Add(8);
+        }
+        if (magic == 5)
+        {
+            UpList.Add(5);
+            UpList.Add(10);
+        }
+        if (magic == 10)
+        {
+            UpList.Add(11);
         }
     }
     public void PhysicsUp()
@@ -192,11 +203,15 @@ public class LevelUp : MonoBehaviour
         if (physics == 3)
         {
             UpList.Add(107);
+            UpList.Add(4);
+            UpList.Add(6);
         }
         if (physics == 5)
         {
             UpList.Add(100);
             UpList.Add(104);
+            UpList.Add(7);
+            UpList.Add(9);
         }
     }
 }
@@ -235,11 +250,19 @@ class Data
             this.type = type;
         }
     }
-    public skilldata[] skillData = new skilldata[3]
+    public skilldata[] skillData = new skilldata[12]
    {
         new skilldata("검술","기본 공격이 강화됩니다.",0),
         new skilldata("물결 파동","직진으로 뻗는 파동을 생성합니다.",1),
         new skilldata("에너지 볼트","플레이어 주변으로 원형으로 발사되는 구체를 생성합니다.",1),
-       
+        new skilldata("뿌리 소환","플레이어로 가까운 곳에 있는 적에게 뿌리를 생성하여 공격합니다.",1),
+        new skilldata("우드 어택","충돌 시 파편을 생성하는 나무를 던집니다.",0),
+        new skilldata("벼락","랜덤한 위치에 벼락을 생성합니다.",1),
+        new skilldata("표창","적중 시 주변 적에게 튕기는 표창을 던집니다.",0),
+        new skilldata("도끼","주우면 쿨타임이 초기화 되는 도끼를 던집니다.",0),
+         new skilldata("고드름","몸 주변에서 순차적으로 퍼져나가는 고드름을 생성합니다.",1),
+          new skilldata("칼춤","주변을 보호하는 칼을 생성합니다.",0),
+           new skilldata("대지의 분노","적을 띄우는 땅의 정령을 소환합니다.",1),
+            new skilldata("신성한 빛","가장 가까운 적에게 성스로운 빛을 떨어뜨립니다.",1),
    };
 }

@@ -9,6 +9,8 @@ TagManager:
   - Enemy
   - Exp
   - potion
+  - EnemyAttack
+  - Ax
   layers:
   - Default
   - TransparentFX

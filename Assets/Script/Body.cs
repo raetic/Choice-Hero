@@ -5,9 +5,49 @@ using UnityEngine;
 public class Body : MonoBehaviour
 {
     [SerializeField] Player myPlayer;
+    bool power;
+    float t;
+    private void Update()
+    {
+        t += Time.deltaTime;
+        if (power && t > 0.1f)
+        {
+            power = false;
+            t = 0;
+        }
+        if (!power && t > 0.03f) {
+            power = true;
+            t = 0;
+        }
+
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!power)
+        {
+            if (collision.gameObject.tag == "Enemy") myPlayer.onHit(collision.gameObject.GetComponent<Enemy>().GetDmg());
+            if (collision.gameObject.tag == "EnemyAttack")
+            {
+                myPlayer.onHit(collision.gameObject.GetComponent<EnemyAttack>().GetDmg());
+                Destroy(collision.gameObject);
+            }
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (collision.gameObject.tag == "Enemy") myPlayer.onHit(collision.gameObject.GetComponent<Enemy>().GetDmg());
+        if (collision.gameObject.tag == "Exp")
+        {
+
+            myPlayer.ExpUp(collision.gameObject.GetComponent<Exp>().mount);
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.tag == "Ax")
+        {
+
+            Destroy(collision.gameObject);
+            myPlayer.SM.GetAx();
+
+        }
     }
 }

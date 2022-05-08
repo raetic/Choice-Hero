@@ -22,12 +22,15 @@ public class Player : MonoBehaviour
     [SerializeField] Image hpImage;
     [SerializeField] Image greenImage;
     [SerializeField] TextMeshProUGUI levelT;
+    [SerializeField] GameObject weaponPoint;
     int Level;
     float curExp;
     float maxExp;
-    SkillManager SM;
+    public SkillManager SM;
     Stat stat;
     BattleManager BM;
+    public bool isRight;
+    public bool isLeft;
     private void Start()
     {   
         rigid = GetComponent<Rigidbody2D>();
@@ -45,17 +48,15 @@ public class Player : MonoBehaviour
         while(true)
         {
             
-            anim.SetTrigger("Attack");
-           
-          
-          
+            anim.SetTrigger("Attack");                           
             yield return new WaitForSeconds(0.1f);
             
             SM.InstSmash();
-            
-            myWeapon.SetActive(true);
+
+            GameObject weapon = Instantiate(myWeapon, weaponPoint.transform.position, transform.rotation);
+            weapon.GetComponent<Attack>().DmgX(1 + 0.2f * stat.PhysicsDmg);
             yield return new WaitForSeconds(0.2f);
-            myWeapon.SetActive(false);
+           
             yield return new WaitForSeconds(1.5f-(stat.AttackSpeed*-0.15f)-0.3f);
         }
     }
@@ -77,13 +78,13 @@ public class Player : MonoBehaviour
     {
         hpBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1f);
         if (Time.timeScale == 0) return;
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow)||isLeft)
         {
-            transform.Translate(Vector2.left * 0.07f * (1 + 0.15f * stat.Speed));
+           transform.Translate(Vector2.left * 0.07f * (1 + 0.15f * stat.Speed));
             anim.SetFloat("RunState", 0.5f);
             transform.localScale = new Vector2(1, 1);
         }
-        else if (Input.GetKey(KeyCode.RightArrow))
+        else if (Input.GetKey(KeyCode.RightArrow)||isRight)
         {
             transform.Translate(Vector2.right * 0.07f * (1+0.15f*stat.Speed));
             transform.localScale = new Vector2(-1, 1);
@@ -96,16 +97,21 @@ public class Player : MonoBehaviour
        
           
     }
-   
-    void Update()
+    public void Jump()
     {
-      
-        if (Input.GetKeyDown(KeyCode.Space) && (1+stat.JumpCount) > curJumpCount)
+        if ((2 + stat.JumpCount) > curJumpCount)
         {
             curJumpCount++;
             rigid.velocity = Vector2.zero;
             rigid.AddForce(Vector2.up * jumpPower);
         }
+    }
+    void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            Jump();
+        
        
 
     }
@@ -121,7 +127,7 @@ public class Player : MonoBehaviour
     {
         
         curExp += Mathf.RoundToInt(mount*(1+0.1f*stat.Exp));
-        if (curExp > maxExp)
+        if (curExp >= maxExp)
         {           
             LevelUp();           
         }
@@ -131,10 +137,9 @@ public class Player : MonoBehaviour
         Level++;
         levelT.text = "LV:"+Level;
         BM.LvUp();
-        float v = curExp - maxExp;
-      
+        float v = curExp - maxExp;    
         curExp = 0;
-        maxExp += 30;
+        maxExp += 40;
         ExpUp(v);
     }
     private void OnCollisionEnter2D(Collision2D collision)
@@ -143,12 +148,5 @@ public class Player : MonoBehaviour
         if (collision.gameObject.tag == "Back") curJumpCount = 0;
        
     }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Exp")
-        {
-            ExpUp(collision.gameObject.GetComponent<Exp>().mount);
-            Destroy(collision.gameObject);
-        }
-    }
+
 }
