@@ -134,9 +134,9 @@ public class LevelUp : MonoBehaviour
     }
     public void StatUp(int stat)
     {
-       
+        if (stat == 8 && st.Stats[stat] == 0) GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().gravityScale = 2;
        st.Stats[stat]++;
-       if (st.Stats[stat] == 5)
+       if (st.Stats[stat] == data.statData[stat].max)
         {
             for(int i = 0; i < UpList.Count; i++)
             {
@@ -147,7 +147,7 @@ public class LevelUp : MonoBehaviour
                 }
             }
         }
-        st.StatUp();
+        st.StatUp(stat);
     }
     public void SkillUp(int skill)
     {
@@ -183,19 +183,35 @@ public class LevelUp : MonoBehaviour
             UpList.Add(102);
         if (magic == 3)
         {
-            UpList.Add(103);
+           
             UpList.Add(3);
             UpList.Add(8);
         }
         if (magic == 5)
+        {
+            UpList.Add(103);
+            
+        }
+        if (magic == 7)
         {
             UpList.Add(5);
             UpList.Add(10);
         }
         if (magic == 10)
         {
+          
+            UpList.Add(108);
+        }
+        if (magic == 15)
+        {
             UpList.Add(11);
             UpList.Add(13);
+
+        }
+        if (magic == 25)
+        {
+            UpList.Add(15);
+            UpList.Add(16);
         }
     }
     public void PhysicsUp()
@@ -209,15 +225,30 @@ public class LevelUp : MonoBehaviour
         }
         if (physics == 5)
         {
-            UpList.Add(100);
+            
             UpList.Add(104);
+          
+        }
+        if (physics == 7)
+        {
             UpList.Add(7);
             UpList.Add(9);
+
         }
         if (physics == 10)
         {
+            UpList.Add(100);
+           
+        }
+        if (physics == 15)
+        {
             UpList.Add(12);
             UpList.Add(14);
+        }
+        if (physics == 25)
+        {
+            UpList.Add(18);
+            UpList.Add(17);
         }
     }
 }
@@ -227,22 +258,25 @@ class Data
     {
         public string Name;
         public string content;
-        public statdata(string name, string content)
+        public int max;
+        public statdata(string name, string content,int max)
         {
             Name = name;
             this.content = content;
+            this.max = max;
         }
     }
-    public statdata[] statData = new statdata[8]
+    public statdata[] statData = new statdata[9]
     {
-        new statdata("투명 날개","공중에서 점프 가능한 횟수가 늘어납니다."),
-        new statdata("날렵한 칼날","물리 공격력이 증가합니다."),
-        new statdata("마법의 깨달음","마법 공격력이 증가합니다."),
-        new statdata("암기의 원석","스킬 쿨타임을 감소됩니다."),
-        new statdata("민첩의 물약","공격속도가 증가합니다."),
-        new statdata("월등한 방패","피격 데미지가 감소됩니다."),
-        new statdata("지식의 목걸이","경험치 획득량이 증가합니다."),
-        new statdata("바람같은 움직임","이동속도가 증가합니다."),
+        new statdata("투명 날개","공중에서 점프 가능한 횟수가 늘어납니다.",5),
+        new statdata("날렵한 칼날","물리 공격력이 증가합니다.",10),
+        new statdata("마법의 깨달음","마법 공격력이 증가합니다.",10),
+        new statdata("암기의 원석","스킬 쿨타임을 감소됩니다.",10),
+        new statdata("민첩의 물약","공격속도가 증가합니다.",10),
+        new statdata("월등한 방패","피격 데미지가 감소됩니다.",10),
+        new statdata("지식의 목걸이","경험치 획득량이 증가합니다.",10),
+        new statdata("바람같은 움직임","이동속도가 증가합니다.",5),
+        new statdata("텔레포트","점프가 텔레포트로 바뀝니다.",2),
     };
    public struct skilldata
     {
@@ -256,7 +290,7 @@ class Data
             this.type = type;
         }
     }
-    public skilldata[] skillData = new skilldata[15]
+    public skilldata[] skillData = new skilldata[19]
    {
         new skilldata("검술","기본 공격이 강화됩니다.",0),
         new skilldata("물결 파동","직진으로 뻗는 파동을 생성합니다.",1),
@@ -273,5 +307,9 @@ class Data
             new skilldata("지진","거대한 망치를 땅에 내리쳐 주변 적을 공중에 띄웁니다.",0),
             new skilldata("토네이도","통제되지 않는 거대한 토네이도를 생성합니다.",1),
             new skilldata("검술2","기본 공격을 할 때마다 주변 적을 베어버립니다.",0),
+            new skilldata("리프 스톰","모든 것을 베어버리는 잎사귀를 날립니다.",1),
+            new skilldata("메테오","폭발을 일으키는 운석을 떨어뜨립니다.",1),
+            new skilldata("소드 레인","엄청난 수의 칼을 위로 던진 후 떨어뜨립니다.",0),
+            new skilldata("자벨린 마스터","가능한 모든 방향으로 표창을 마구 던집니다.",0),
    };
 }

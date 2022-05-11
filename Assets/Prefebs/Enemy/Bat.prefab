@@ -159,12 +159,14 @@ MonoBehaviour:
   maxHp: 1
   dmg: {fileID: 703140322808896852, guid: f94100e3d40ff4e4882d102514cb8643, type: 3}
   Atk: 5
-  expMount: 50
+  expMount: 35
   isMove: 1
   exp: {fileID: 3648685069295115079, guid: 287168bfe33fcb541b61b9b6af155268, type: 3}
   potion:
   - {fileID: 8003253628571533403, guid: 36d38eb09784b904fa8eb0bd6c931501, type: 3}
   - {fileID: 6238152693025510619, guid: 2c33b0b4325b29049a75a993e39a3b47, type: 3}
+  isBoss: 0
+  isAir: 0
 --- !u!114 &657324182561562057
 MonoBehaviour:
   m_ObjectHideFlags: 0

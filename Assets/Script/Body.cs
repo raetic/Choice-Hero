@@ -15,7 +15,7 @@ public class Body : MonoBehaviour
             power = false;
             t = 0;
         }
-        if (!power && t > 0.03f) {
+        if (!power && t > 0.01f) {
             power = true;
             t = 0;
         }
@@ -26,11 +26,13 @@ public class Body : MonoBehaviour
         if (!power)
         {
             if (collision.gameObject.tag == "Enemy") myPlayer.onHit(collision.gameObject.GetComponent<Enemy>().GetDmg());
-            if (collision.gameObject.tag == "EnemyAttack")
-            {
-                myPlayer.onHit(collision.gameObject.GetComponent<EnemyAttack>().GetDmg());
-                Destroy(collision.gameObject);
-            }
+           
+        }
+        if (collision.gameObject.tag == "EnemyAttack")
+        {
+            myPlayer.onHit(collision.gameObject.GetComponent<EnemyAttack>().GetDmg());
+            if(!collision.gameObject.GetComponent<EnemyAttack>().notD)
+            Destroy(collision.gameObject);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

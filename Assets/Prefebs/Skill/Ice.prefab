@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 162317827162669582}
   m_Layer: 0
   m_Name: Ice
-  m_TagString: Untagged
+  m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -204,3 +204,5 @@ MonoBehaviour:
   isWood: 0
   StartTime: 0.2
   isNin: 0
+  notPush: 0
+  isMeteo: 0

@@ -92,12 +92,12 @@ public class Boss1 : MonoBehaviour
                     turn = 0;
                 }
             }
-            transform.Translate(Vector2.left * v * 3f * Time.deltaTime);
+            transform.Translate(Vector2.left * v * 2f * Time.deltaTime);
             if (Player.transform.position.y > -3f&&!isJump)
             {             
                 anim.SetBool("isJump", true);
                 isJump = true;
-                rigid.AddForce(Vector2.up * 500);              
+                rigid.AddForce(Vector2.up * 400);              
             }
         }
         else

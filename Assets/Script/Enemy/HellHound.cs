@@ -27,9 +27,11 @@ public class HellHound : MonoBehaviour
     void Update()
     {
         if (myEnemy.isMove)
-        {
-            transform.Translate(Vector2.left * v * 2 * Time.deltaTime);
-            t += Time.deltaTime;
+        {if (!myEnemy.isAir)
+            {
+                transform.Translate(Vector2.left * v * 2 * Time.deltaTime);
+                t += Time.deltaTime;
+            }
             if (t > r)
             {
                 GetComponent<Rigidbody2D>().AddForce(Vector2.up * 500);

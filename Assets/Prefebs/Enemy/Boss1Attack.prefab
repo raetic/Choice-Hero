@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8486734159177529132}
   - component: {fileID: 1703968092840228772}
   - component: {fileID: 1165652480322839999}
+  - component: {fileID: -4533395765811380501}
   m_Layer: 0
   m_Name: Boss1Attack
   m_TagString: EnemyAttack
@@ -139,9 +140,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.03}
   serializedVersion: 2
-  m_Radius: 0.12
+  m_Radius: 0.15
 --- !u!114 &1165652480322839999
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,3 +156,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 5
+--- !u!114 &-4533395765811380501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8394319515201506916}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbf3575480402db40813e763382412fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineEffect: {fileID: 0}
+  color: 0
+  eraseRenderer: 0
+  originalLayer: 0
+  originalMaterial: {fileID: 0}

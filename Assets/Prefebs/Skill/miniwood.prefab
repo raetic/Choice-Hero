@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe7aba796da97bc489ce920007611c07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 3
+  dmg: 5
   DestroyTime: 0
   AttackTime: 0
   destroyCount: 1
@@ -154,6 +154,7 @@ MonoBehaviour:
   isWood: 0
   StartTime: 0
   isNin: 0
+  notPush: 0
 --- !u!95 &2081851192155083137
 Animator:
   serializedVersion: 3

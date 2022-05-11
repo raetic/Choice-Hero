@@ -66,7 +66,7 @@ public class Warm : MonoBehaviour
         {
             GoLeft();
         }
-        if (Mathf.Abs(transform.position.x - Player.transform.position.x) < 5||isBress)
+        if (Mathf.Abs(transform.position.x - Player.transform.position.x) < 3||isBress)
         {
             isBress = true;
             isAttack = true;
@@ -82,7 +82,7 @@ public class Warm : MonoBehaviour
         {
             t = 0;
             if (myEnemy.isMove)
-            {
+            {if(!myEnemy.isAir)
                 transform.Translate(Vector2.left * v * 1f * Time.deltaTime);
             }
             else

@@ -26,7 +26,7 @@ public class ButtonManager : MonoBehaviour
         p.isRight = false;
     }
     public void Jump()
-    {
+    {if (Time.timeScale == 0) return;
         p.Jump();
     }
 }

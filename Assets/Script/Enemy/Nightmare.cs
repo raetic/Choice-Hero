@@ -27,8 +27,10 @@ public class Nightmare : MonoBehaviour
     {
         if (myEnemy.isMove)
         {
-            transform.Translate(Vector2.left * v * 3 * Time.deltaTime);
-            t += Time.deltaTime;
+            if (!myEnemy.isAir)
+            {
+                transform.Translate(Vector2.left * v * 3 * Time.deltaTime);
+            }
             if (transform.position.y < -5) Destroy(gameObject);
         }
         else

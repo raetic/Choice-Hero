@@ -12,17 +12,28 @@ public class Stat : MonoBehaviour
     [SerializeField] float cooltime=0;
     [SerializeField] float attackSpeed=0;
     [SerializeField] float attackedDmg=0;
-    int[] stats = new int[8];
-    public void StatUp()
+    [SerializeField] int teleport = 0;
+    int[] stats = new int[9];
+    public void StatUp(int i)
     {
-        jumpCount = stats[0];
-        physicsDmg = stats[1];
-        magicDmg = stats[2];
-        cooltime = stats[3];
-        attackSpeed = stats[4];
-        attackedDmg = stats[5];
-        exp = stats[6];
-        speed = stats[7];
+        if (i == 0)
+            jumpCount++;
+        if (i == 1)
+            physicsDmg++;
+        if (i == 2)
+            magicDmg++;
+        if (i == 3)
+            cooltime++;
+        if (i == 4)
+            attackSpeed++;
+        if (i == 5)
+            attackedDmg++;
+        if (i == 6)
+            exp++;
+        if (i == 7)
+            speed++;
+        if (i == 8)
+            teleport++;
     }
     public float Exp { get => exp; set => exp = value; }
     public int JumpCount { get => jumpCount; set => jumpCount = value; }
@@ -32,5 +43,6 @@ public class Stat : MonoBehaviour
     public float Cooltime { get => cooltime; set => cooltime = value; }
     public float AttackSpeed { get => attackSpeed; set => attackSpeed = value; }
     public float AttackedDmg { get => attackedDmg; set => attackedDmg = value; }
+    public int Teleport { get => teleport; set => teleport = value; }
     public int[] Stats { get => stats; set => stats = value; }
 }

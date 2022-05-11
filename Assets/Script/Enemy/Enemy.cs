@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject exp;
     [SerializeField] GameObject[] potion;
     [SerializeField] bool isBoss;
-    bool isAir;
+   public bool isAir;
     public void Air(float p)
     {
         rigid.AddForce(Vector2.up * p);
@@ -79,12 +79,13 @@ public class Enemy : MonoBehaviour
             collision.gameObject.GetComponent<Attack>().Conflict();
             int d = collision.gameObject.GetComponent<Attack>().GetDmg();
             OnHit(d);
-            Invoke("SetRigid", 0.1f);
+            Invoke("SetRigid", 0.2f);
         }
     }
  void SetRigid()
     {
         rigid.velocity = Vector2.zero;
+        isMove = true;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {

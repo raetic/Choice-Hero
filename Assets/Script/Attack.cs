@@ -14,6 +14,7 @@ public class Attack : MonoBehaviour
     [SerializeField] float StartTime;
     [SerializeField] bool isNin;
     public bool notPush;
+    [SerializeField] bool isMeteo;
     private void Start()
     {
         if (DestroyTime > 0)
@@ -89,6 +90,11 @@ public class Attack : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+        }
+        if (isMeteo)
+        {
+            GetComponent<Meteo>().MakeExplosion();
+            return;
         }
         destroyCount--;
         if (destroyCount == 0) {
