@@ -11,6 +11,7 @@ TagManager:
   - potion
   - EnemyAttack
   - Ax
+  - Reselect
   layers:
   - Default
   - TransparentFX
