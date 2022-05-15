@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 3922947334420469022, guid: 70817b9e9283df74fa0dc37be733307d,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -169,3 +169,10 @@ MonoBehaviour:
   AttackTime: 0
   destroyCount: 1
   isDestroy: 1
+  n: 0
+  isWood: 0
+  StartTime: 0
+  isNin: 0
+  notPush: 0
+  isMeteo: 0
+  notDestoryInBorder: 0

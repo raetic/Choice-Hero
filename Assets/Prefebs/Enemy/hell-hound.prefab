@@ -175,6 +175,7 @@ MonoBehaviour:
   potion:
   - {fileID: 8003253628571533403, guid: 36d38eb09784b904fa8eb0bd6c931501, type: 3}
   - {fileID: 6238152693025510619, guid: 2c33b0b4325b29049a75a993e39a3b47, type: 3}
+  reselct: {fileID: 1529558284369217962, guid: c22b773b79f5e864d8ab98e37bb8f64c, type: 3}
   isBoss: 0
   isAir: 0
 --- !u!114 &3908298427483886186

@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 120
+  startRotate: 0
 --- !u!50 &4084513100364708655
 Rigidbody2D:
   serializedVersion: 4
@@ -141,6 +142,9 @@ MonoBehaviour:
   isWood: 0
   StartTime: 0
   isNin: 0
+  notPush: 0
+  isMeteo: 0
+  notDestoryInBorder: 1
 --- !u!114 &-3184687914471767955
 MonoBehaviour:
   m_ObjectHideFlags: 0

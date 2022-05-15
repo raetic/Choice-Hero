@@ -13,15 +13,17 @@ public class Darkelf : MonoBehaviour
     float t;
     [SerializeField] GameObject AttackObj;
     [SerializeField] GameObject Spot;
-    bool isBress;
+    bool isAim;
     bool isB;
+    float cool;
     public void GoRight()
-    {
+    {if (isAim) return;
         v = 1;
         transform.localScale = new Vector3(-1, 1, 0);
     }
     public void GoLeft()
     {
+        if (isAim) return;
         v = -1;
         transform.localScale = new Vector3(1, 1, 0);
     }
@@ -37,7 +39,7 @@ public class Darkelf : MonoBehaviour
     void Attack()
     {
         t += Time.deltaTime;
-        if (t >=0.65f)
+        if (t >=0.4f)
         {
             if (!isB)
             {
@@ -47,14 +49,16 @@ public class Darkelf : MonoBehaviour
                 attack.transform.localScale = new Vector3(v * -1, 1, 0);
                 isB = false;
                 t = 0;
-                isBress = false;
+                anim.SetBool("isAttack", false);
+                isAim = false;
+                cool = 1;
             }
           
 
         }
     }
     void Update()
-    {
+    {if (cool >= 0) cool -= Time.deltaTime;
         if (transform.position.y < -5) Destroy(gameObject);
         if (transform.position.x > Player.transform.position.x)
         {
@@ -64,9 +68,9 @@ public class Darkelf : MonoBehaviour
         {
             GoLeft();
         }
-        if (Mathf.Abs(transform.position.x - Player.transform.position.x) < 5|| isBress)
+        if (Mathf.Abs(transform.position.x - Player.transform.position.x) < 5&&cool<=0)
         {
-            isBress = true;
+            isAim = true;
             isAttack = true;
             anim.SetBool("isAttack", true);
             Attack();
@@ -81,7 +85,7 @@ public class Darkelf : MonoBehaviour
             t = 0;
             if (myEnemy.isMove)
             {if(!myEnemy.isAir)
-                transform.Translate(Vector2.left * v * 1.3f * Time.deltaTime);
+                transform.Translate(Vector2.left * v * 1f * Time.deltaTime);
             }
             else
             {

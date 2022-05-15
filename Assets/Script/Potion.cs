@@ -22,6 +22,7 @@ public class Potion : MonoBehaviour
         int k = 0;
         while (k < 12)
         {
+            k++;
             if (!t)
             {
                 sprite.color = new Color(1, 1, 1, 0.2f);

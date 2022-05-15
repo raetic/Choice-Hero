@@ -48,7 +48,9 @@ public class SkillManager : MonoBehaviour
     [SerializeField] GameObject meteoPrefebs;
     [SerializeField] GameObject swordPrefebs;
     [SerializeField] GameObject stPrefebs;
+    [SerializeField] GameObject myolPrefebs;
     [SerializeField] GameObject Claw;
+    List<GameObject> myolList = new List<GameObject>();
     Stat stat;
     [SerializeField] LayerMask enemyMask;
 
@@ -716,5 +718,51 @@ public class SkillManager : MonoBehaviour
             yield return new WaitForSeconds(t);
         }
 
+    }
+    public void MyolLevelUp()
+    {
+        int no = 19;
+        if (skills[no] == 1) {
+            GameObject myolObj = Instantiate(myolPrefebs, transform.position, transform.rotation);
+            myolObj.GetComponent<Attack>().DmgX(1 + 0.2f * stat.PhysicsDmg);
+            myolList.Add(myolObj);
+        }
+        if (skills[no] == 2) {
+            myolList[0].transform.localScale *= 1.3f;
+        }
+        if (skills[no] == 3) {
+            myolList[0].GetComponent<myol>().cool -= 0.5f;
+        }
+        if (skills[no] == 4) {
+            myolList[0].GetComponent<myol>().speed = 7;
+        }
+        if (skills[no] == 5)
+        {
+            myolList[0].GetComponent<Attack>().DmgX(1.3f);
+        }
+        if (skills[no] == 6) {
+            GameObject myolObj = Instantiate(myolList[0], transform.position, transform.rotation);
+            myolList.Add(myolObj);
+        }
+        if (skills[no] == 7) { 
+            for(int i = 0; i < 2; i++)
+            {
+                myolList[i].GetComponent<myol>().cool -= 0.5f;
+            }
+        }
+        if (skills[no] == 8) {
+            for (int i = 0; i < 2; i++)
+                myolList[i].GetComponent<myol>().speed = 10;
+        }
+        if (skills[no] == 9) {
+            for (int i = 0; i < 2; i++)
+                myolList[i].transform.localScale *= 1.3f;
+
+        }
+        if (skills[no] == 10)
+        {
+            for (int i = 0; i < 2; i++)
+                myolList[i].GetComponent<Attack>().DmgX(1.3f);
+        }
     }
 }

@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public bool isMove;
     [SerializeField] GameObject exp;
     [SerializeField] GameObject[] potion;
+    [SerializeField] GameObject reselct;
     [SerializeField] bool isBoss;
    public bool isAir;
     public void Air(float p)
@@ -57,11 +58,17 @@ public class Enemy : MonoBehaviour
                     GameObject potion1 = Instantiate(potion[1], transform.position, transform.rotation);
                 }
             }
+          
+            if (rand <= 5&&rand>=3)
+            {
+                GameObject resel = Instantiate(reselct, transform.position, transform.rotation);
+            }
         }
         else
         {
             GameObject potion1 = Instantiate(potion[0], transform.position, transform.rotation);
             GameObject.Find("BattleManager").GetComponent<BattleManager>().bossPhase = false;
+            GameObject resel = Instantiate(reselct, transform.position, transform.rotation);
         }
         Destroy(gameObject);
     }

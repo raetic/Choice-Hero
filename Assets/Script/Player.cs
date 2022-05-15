@@ -32,6 +32,7 @@ public class Player : MonoBehaviour
     public bool isRight;
     public bool isLeft;
     float teleportCool;
+    public int reselect;
     private void Start()
     {   
         rigid = GetComponent<Rigidbody2D>();

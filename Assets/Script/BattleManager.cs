@@ -28,7 +28,8 @@ public class BattleManager : MonoBehaviour
     float[] bossend = new float[5];
     void Start()
     {
-        StartCoroutine("Phase1");
+      StartCoroutine("Phase1");
+        
     }
     public void LvUp()
     {
@@ -179,7 +180,7 @@ public class BattleManager : MonoBehaviour
         while (gameTime < bossend[0] + 120)
         {
             p++;
-            if (p % 10 == 0)
+            if (p % 15 == 0)
             {
                 int rand = Random.Range(0, 2);
                 GameObject w = Instantiate(darkelf, SpawnPoint[rand].transform.position, transform.rotation);
@@ -190,7 +191,7 @@ public class BattleManager : MonoBehaviour
                 GameObject n = Instantiate(nightMare2, SpawnPoint[rand].transform.position, transform.rotation);
                 if (rand == 0) n.GetComponent<Nightmare>().GoRight();
             }
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.6f);
         }
         StartCoroutine("Phase8");
     }
@@ -200,7 +201,7 @@ public class BattleManager : MonoBehaviour
         while (gameTime < bossend[0] + 180)
         {
             p++;
-            if (p % 15 == 0)
+            if (p % 25 == 0)
             {
                 int rand = Random.Range(0, 2);
                 GameObject n = Instantiate(darkelf, SpawnPoint[rand].transform.position, transform.rotation);
@@ -227,12 +228,12 @@ public class BattleManager : MonoBehaviour
         while (gameTime < bossend[0] + 240)
         {
             p++;
-            if (p % 5 == 0)
+            if (p % 10 == 0)
             {
                 int rand = Random.Range(0, 2);
                 GameObject n = Instantiate(darkelf, SpawnPoint[rand].transform.position, transform.rotation);
             }
-            else if (p % 3 == 0)
+            else if (p % 6 == 0)
             {
                 int rand = Random.Range(0, 2);
                 GameObject n = Instantiate(warm, SpawnPoint[rand].transform.position, transform.rotation);
@@ -242,7 +243,7 @@ public class BattleManager : MonoBehaviour
                 int rand = Random.Range(0, 5);
                 GameObject b = Instantiate(flyeye, FlySpawnPoint[rand].transform.position, transform.rotation);
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
         }
         StartCoroutine("Boss2");
     }
@@ -309,7 +310,7 @@ public class BattleManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
         }
-        bossend[1] = gameTime;
+        bossend[0] = gameTime;
         StartCoroutine("BorderOff");
         StartCoroutine("Phase6");
     }

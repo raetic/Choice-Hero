@@ -15,6 +15,7 @@ public class Attack : MonoBehaviour
     [SerializeField] bool isNin;
     public bool notPush;
     [SerializeField] bool isMeteo;
+    public bool notDestoryInBorder;
     private void Start()
     {
         if (DestroyTime > 0)

@@ -12,6 +12,7 @@ public class LevelUp : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] content;
     [SerializeField] TextMeshProUGUI[] lv;
     [SerializeField] TextMeshProUGUI[] type;
+    [SerializeField] Image[] selectImages;
     Data data = new Data();
     BattleManager BM;
 
@@ -20,27 +21,59 @@ public class LevelUp : MonoBehaviour
     [SerializeField] Sprite[] statIcon;
     [SerializeField] Sprite[] skillIcon;
     List<int> UpList = new List<int>();
-
+    [SerializeField] TextMeshProUGUI reselctCount;
     int[] curReward = new int[3];
     int magic;
     int physics=1;
+    [SerializeField] GameObject player;
     private void Awake()
     {
         sm = GameObject.FindWithTag("Player").GetComponent<SkillManager>();
         st = GameObject.FindWithTag("Player").GetComponent<Stat>();
         BM = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+        player = GameObject.FindGameObjectWithTag("Player");
         UpList.Add(0);
         UpList.Add(1);
         UpList.Add(2);
         UpList.Add(101);
         UpList.Add(105);
         UpList.Add(106);
-    }
 
+    }
+    IEnumerator SelectCor()
+    {
+        selectImages[0].color=new Color(0.854902f, 0.7294118f, 0.568627f, 1);
+        selectImages[1].color = new Color(0.854902f, 0.7294118f, 0.568627f, 1);
+        selectImages[2].color = new Color(0.854902f, 0.7294118f, 0.568627f, 1);
+        int t = 0;
+        while (t < 10)
+        {
+            t++;
+            
+            selectImages[0].color = new Color(0.854902f, 0.7294118f, 0.568627f, 1-0.1f * t);
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
+        t = 0;
+        while (t < 10)
+        {
+            t++;
+            selectImages[1].color = new Color(0.854902f, 0.7294118f, 0.568627f, 1 - 0.1f * t);
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
+        t = 0;
+        while (t < 10)
+        {
+            t++;
+            selectImages[2].color = new Color(0.854902f, 0.7294118f, 0.568627f, 1 - 0.1f * t);
+            yield return new WaitForSecondsRealtime(0.05f);
+        }
+    }
    
     public void PopupOn()
     {
+       
         gameObject.SetActive(true);
+        StartCoroutine("SelectCor");
         if (UpList.Count > 0)
         {
             int rand1 = Random.Range(0, UpList.Count);
@@ -71,6 +104,7 @@ public class LevelUp : MonoBehaviour
                     int rand3 = Random.Range(0, UpList.Count);
                     while (rand1 == rand3||rand2==rand3) rand3 = Random.Range(0, UpList.Count);
                     int rew3 = UpList[rand3];
+                   
                     if (rew3 >= 100)
                     {
                         SetStatReward(2, rew3 - 100);
@@ -82,12 +116,12 @@ public class LevelUp : MonoBehaviour
                 }
             }
         }
+        reselctCount.text = "x" + player.GetComponent<Player>().reselect;
         Time.timeScale = 0;
     }
     
     public void SetSkillReward(int num,int rew)
-    {
-      
+    {    
         curReward[num] = rew;
         images[num].sprite = skillIcon[rew];
         name[num].text = data.skillData[rew].Name;
@@ -112,7 +146,6 @@ public class LevelUp : MonoBehaviour
     }
     public void SelectReward(int rew)
     {
-
         if (curReward[rew] >= 100)
         {
             StatUp(curReward[rew] - 100);
@@ -134,7 +167,7 @@ public class LevelUp : MonoBehaviour
     }
     public void StatUp(int stat)
     {
-        if (stat == 8 && st.Stats[stat] == 0) GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>().gravityScale = 2;
+        if (stat == 8 && st.Stats[stat] == 0) player.GetComponent<Rigidbody2D>().gravityScale = 2;
        st.Stats[stat]++;
        if (st.Stats[stat] == data.statData[stat].max)
         {
@@ -160,9 +193,14 @@ public class LevelUp : MonoBehaviour
         {
             sm.SmashDanceLevelUp(sm.Skills[skill]);
         }
+      
         if (data.skillData[skill].type == 0) PhysicsUp();
         if (data.skillData[skill].type == 1) MagicUp();
         sm.Skills[skill]++;
+        if (skill == 19)
+        {
+            sm.MyolLevelUp();
+        }
         if (sm.Skills[skill] == 10)
         {
             for (int i = 0; i < UpList.Count; i++)
@@ -250,6 +288,19 @@ public class LevelUp : MonoBehaviour
             UpList.Add(18);
             UpList.Add(17);
         }
+        if (physics == 40)
+        {
+            UpList.Add(19);
+        }
+    }
+    public void ReselectButton()
+    {
+        if (player.GetComponent<Player>().reselect == 0) return;
+        else
+        {
+            player.GetComponent<Player>().reselect--;
+            PopupOn();
+        }
     }
 }
 class Data
@@ -290,7 +341,7 @@ class Data
             this.type = type;
         }
     }
-    public skilldata[] skillData = new skilldata[19]
+    public skilldata[] skillData = new skilldata[20]
    {
         new skilldata("검술","기본 공격이 강화됩니다.",0),
         new skilldata("물결 파동","직진으로 뻗는 파동을 생성합니다.",1),
@@ -300,16 +351,17 @@ class Data
         new skilldata("벼락","랜덤한 위치에 벼락을 생성합니다.",1),
         new skilldata("표창","적중 시 주변 적에게 튕기는 표창을 던집니다.",0),
         new skilldata("도끼","주우면 쿨타임이 초기화 되는 도끼를 던집니다.",0),
-         new skilldata("고드름","몸 주변에서 순차적으로 퍼져나가는 고드름을 생성합니다.",1),
-          new skilldata("칼춤","주변을 보호하는 칼을 생성합니다.",0),
-           new skilldata("대지의 분노","적을 띄우는 땅의 정령을 소환합니다.",1),
-            new skilldata("신성한 빛","가장 가까운 적에게 성스로운 빛을 떨어뜨립니다.",1),
-            new skilldata("지진","거대한 망치를 땅에 내리쳐 주변 적을 공중에 띄웁니다.",0),
-            new skilldata("토네이도","통제되지 않는 거대한 토네이도를 생성합니다.",1),
+        new skilldata("고드름","몸 주변에서 순차적으로 퍼져나가는 고드름을 생성합니다.",1),
+        new skilldata("칼춤","주변을 보호하는 칼을 생성합니다.",0),
+        new skilldata("대지의 분노","적을 띄우는 땅의 정령을 소환합니다.",1),
+        new skilldata("신성한 빛","가장 가까운 적에게 성스로운 빛을 떨어뜨립니다.",1),
+        new skilldata("지진","거대한 망치를 땅에 내리쳐 주변 적을 공중에 띄웁니다.",0),
+        new skilldata("토네이도","통제되지 않는 거대한 토네이도를 생성합니다.",1),
             new skilldata("검술2","기본 공격을 할 때마다 주변 적을 베어버립니다.",0),
             new skilldata("리프 스톰","모든 것을 베어버리는 잎사귀를 날립니다.",1),
             new skilldata("메테오","폭발을 일으키는 운석을 떨어뜨립니다.",1),
             new skilldata("소드 레인","엄청난 수의 칼을 위로 던진 후 떨어뜨립니다.",0),
             new skilldata("자벨린 마스터","가능한 모든 방향으로 표창을 마구 던집니다.",0),
+            new skilldata("묠니르","신화속의 전설의 도끼를 소환합니다.",0),
    };
 }
