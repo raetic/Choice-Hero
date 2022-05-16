@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2231810374864941846}
   - component: {fileID: 2231810374864941841}
   - component: {fileID: 2231810374864941840}
-  - component: {fileID: 2231810374864941843}
+  - component: {fileID: -1581249173796756301}
   m_Layer: 8
   m_Name: flyeye
   m_TagString: Enemy
@@ -168,7 +168,9 @@ MonoBehaviour:
   reselct: {fileID: 1529558284369217962, guid: c22b773b79f5e864d8ab98e37bb8f64c, type: 3}
   isBoss: 0
   isAir: 0
---- !u!114 &2231810374864941843
+  isSl: 0
+  notPush: 0
+--- !u!114 &-1581249173796756301
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,6 +179,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2231810374864941855}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a39156c2468021842a393d8dbd451b23, type: 3}
+  m_Script: {fileID: 11500000, guid: 4fb8e1c324ddbad43b9959f1c8b937eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3

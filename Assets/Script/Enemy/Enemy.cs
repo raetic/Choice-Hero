@@ -15,7 +15,9 @@ public class Enemy : MonoBehaviour
     [SerializeField] GameObject[] potion;
     [SerializeField] GameObject reselct;
     [SerializeField] bool isBoss;
-   public bool isAir;
+    public bool isAir;
+    [SerializeField] bool isSl;
+    [SerializeField] bool notPush;
     public void Air(float p)
     {
         rigid.AddForce(Vector2.up * p);
@@ -41,10 +43,15 @@ public class Enemy : MonoBehaviour
     }
     public void Die()
     {
-      
+        if (isSl)
+        {
+            GetComponent<Slime>().Die();
+            
+            return;
+        }
         GameObject e = Instantiate(exp, transform.position, transform.rotation);
         e.GetComponent<Exp>().setMount(expMount);
-        if (!isBoss)
+        if (!isBoss&&!isSl)
         {
             int rand = Random.Range(0, 100);
             if (rand <= 2)
@@ -80,8 +87,11 @@ public class Enemy : MonoBehaviour
         {
             if (!collision.gameObject.GetComponent<Attack>().notPush)
             {
-                rigid.AddForce(new Vector2(transform.position.x - collision.transform.position.x, 0).normalized * 150);
-                isMove = false;
+                if (!notPush)
+                {
+                    rigid.AddForce(new Vector2(transform.position.x - collision.transform.position.x, 0).normalized * 150);
+                    isMove = false;
+                }
             }
             collision.gameObject.GetComponent<Attack>().Conflict();
             int d = collision.gameObject.GetComponent<Attack>().GetDmg();

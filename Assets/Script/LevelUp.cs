@@ -238,7 +238,7 @@ public class LevelUp : MonoBehaviour
         if (magic == 10)
         {
           
-            UpList.Add(108);
+          //  UpList.Add(108);
         }
         if (magic == 15)
         {
@@ -291,6 +291,7 @@ public class LevelUp : MonoBehaviour
         if (physics == 40)
         {
             UpList.Add(19);
+            UpList.Add(20);
         }
     }
     public void ReselectButton()
@@ -341,7 +342,7 @@ class Data
             this.type = type;
         }
     }
-    public skilldata[] skillData = new skilldata[20]
+    public skilldata[] skillData = new skilldata[23]
    {
         new skilldata("검술","기본 공격이 강화됩니다.",0),
         new skilldata("물결 파동","직진으로 뻗는 파동을 생성합니다.",1),
@@ -363,5 +364,8 @@ class Data
             new skilldata("소드 레인","엄청난 수의 칼을 위로 던진 후 떨어뜨립니다.",0),
             new skilldata("자벨린 마스터","가능한 모든 방향으로 표창을 마구 던집니다.",0),
             new skilldata("묠니르","신화속의 전설의 도끼를 소환합니다.",0),
+            new skilldata("검술:발도","특정 기본 공격 횟수마다 발도술을 사용합니다.",0),
+            new skilldata("체인라이트닝","모든 적을 공격하는 전기마법을 씁니다.",1),
+            new skilldata("해수 폭발","땅 밑 깊은곳에서부터 끓는 해수를 폭발시킵니다.",1),
    };
 }

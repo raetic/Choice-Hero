@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 4926131633840504183, guid: b334d28bc384bea4096d1fba374124e4,
     type: 3}
-  m_Color: {r: 0, g: 0.81057835, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.8009515, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -178,6 +178,8 @@ MonoBehaviour:
   reselct: {fileID: 1529558284369217962, guid: c22b773b79f5e864d8ab98e37bb8f64c, type: 3}
   isBoss: 0
   isAir: 0
+  isSl: 0
+  notPush: 0
 --- !u!114 &8651643903588662147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,3 +192,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a0e6d03b8261b4ebfd681648cece8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3

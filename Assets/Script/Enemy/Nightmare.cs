@@ -10,6 +10,7 @@ public class Nightmare : MonoBehaviour
     float r;
     Enemy myEnemy;
     float stopT;
+    [SerializeField] float speed;
     public void GoRight()
     {
         v = -1;
@@ -29,7 +30,7 @@ public class Nightmare : MonoBehaviour
         {
             if (!myEnemy.isAir)
             {
-                transform.Translate(Vector2.left * v * 3 * Time.deltaTime);
+                transform.Translate(Vector2.left * v * speed * Time.deltaTime);
             }
             if (transform.position.y < -5) Destroy(gameObject);
         }

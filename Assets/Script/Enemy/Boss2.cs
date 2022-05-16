@@ -67,7 +67,7 @@ public class Boss2 : MonoBehaviour
             t++;
             int rand = Random.Range(-600, 600);
             float x = GameObject.FindGameObjectWithTag("MainCamera").transform.position.x;
-            Instantiate(boss2prefebs, new Vector3(x + rand / 100, 4.4f), transform.rotation);
+            Instantiate(boss2prefebs, new Vector3(x + rand / 100, 3.2f), transform.rotation);
             yield return new WaitForSeconds(0.5f);
         }
     }
@@ -108,7 +108,7 @@ public class Boss2 : MonoBehaviour
                         turn = 0;
                     }
                 }
-                transform.Translate(Vector2.right * v * 3.8f * Time.deltaTime);
+                transform.Translate(Vector2.right * v * 3f * Time.deltaTime);
             }
        
         }

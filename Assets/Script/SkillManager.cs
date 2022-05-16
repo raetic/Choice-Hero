@@ -6,7 +6,7 @@ public class SkillManager : MonoBehaviour
 {
     public float cooltime;
     Player player;
-    [SerializeField]int[] skills=new int[20];
+    [SerializeField]int[] skills=new int[25];
     [SerializeField]GameObject weapon;
     enum skill{
             smash=0,
@@ -49,6 +49,9 @@ public class SkillManager : MonoBehaviour
     [SerializeField] GameObject swordPrefebs;
     [SerializeField] GameObject stPrefebs;
     [SerializeField] GameObject myolPrefebs;
+    [SerializeField] GameObject chainPrefebs;
+    [SerializeField] GameObject[] castPrefebs;
+    [SerializeField] GameObject waterPrefebs;
     [SerializeField] GameObject Claw;
     List<GameObject> myolList = new List<GameObject>();
     Stat stat;
@@ -57,16 +60,19 @@ public class SkillManager : MonoBehaviour
     bool haveAx;
     public int[] Skills { get => skills; set => skills = value; }
 
+    int smashCount;
+
     private void Awake()
     {
         player = GetComponent<Player>();
         stat = GetComponent<Stat>();
         skills[0] = 1;
-      
-        
+     
+
+
     }
     public void InstSkill(int s)
-    {
+    {if (s == 0) player.GetComponent<Player>().startAttack();
         if (s == 1) InstWave();
         if (s == 2) InstBolt();
         if (s == 3) InstRoot();
@@ -83,10 +89,13 @@ public class SkillManager : MonoBehaviour
         if (s == 16) InstMeteo();
         if (s == 17) InstSwordRain();
         if (s == 18) InstShurikenTonado();
+        if (s == 21) InstChain();
+        if (s == 22) InstWater();
     }
     public void InstSmash()
     {
         if (skills[14] > 0) InstClaw();
+        if (skills[20] > 0) InstCast();
         if (skills[0] <2) return;
         
         GameObject newObj = Instantiate(smashPrefebs, weapon.transform.position, transform.rotation);
@@ -145,9 +154,9 @@ public class SkillManager : MonoBehaviour
 
     public void InstWave()
     {
-        float cool = 5;
+        float cool = 3;
         float speed = -400;
-        int pen = 0;
+        int pen = 1;
         float dmg = 1;
         float scale = 1;
         if (skills[(int)skill.wave] > 1) speed *= 1.3f;
@@ -176,7 +185,7 @@ public class SkillManager : MonoBehaviour
         float dmg = 1;
         int n = 3;
         float speed = 150;
-        float cool = 7;
+        float cool = 5;
         if (skills[(int)skill.bolt] > 1) speed *= 1.3f;
         if (skills[(int)skill.bolt] > 2) n = 5;
         if (skills[(int)skill.bolt] > 3) scale *= 1.3f;
@@ -763,6 +772,114 @@ public class SkillManager : MonoBehaviour
         {
             for (int i = 0; i < 2; i++)
                 myolList[i].GetComponent<Attack>().DmgX(1.3f);
+        }
+    }
+    public void InstCast()
+    {
+        smashCount++;
+        int no = 20;
+        float dmg =5;
+        int n = 5;
+        float scale = 1;
+        if (skills[no] > 4) n = 4;
+        if (skills[no] > 8) n = 3;
+        if (smashCount < n) return;
+        if (skills[no] > 1) dmg *= 1.2f;
+        if (skills[no] > 2) dmg *= 1.2f;
+        if (skills[no] > 3) scale *= 1.3f;
+        if (skills[no] > 5) dmg *= 1.2f;
+        if (skills[no] > 6) dmg *= 1.2f;
+        if (skills[no] > 7) scale *= 1.3f;
+        smashCount = 0;
+        Instantiate(castPrefebs[0], transform.position+new Vector3(0,0.5f,0), transform.rotation).transform.localScale*=scale;
+        Collider2D[] cols = Physics2D.OverlapBoxAll(transform.position, new Vector2(6,6)*scale, 0, enemyMask);
+        if (skills[no] <= 9)
+        {
+           for(int i = 0; i < cols.Length; i++)
+            {
+                Instantiate(castPrefebs[1], cols[i].transform.position, transform.rotation);
+                cols[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt((1 + 0.2f * stat.PhysicsDmg) * dmg));
+            }
+
+        }
+        else
+        {
+            for (int i = 0; i < cols.Length; i++)
+            {
+                Instantiate(castPrefebs[1], cols[i].transform.position+new Vector3(0.3f,-0.3f), transform.rotation);
+                Instantiate(castPrefebs[1], cols[i].transform.position + new Vector3(-0.3f, 0.3f), transform.rotation);
+                cols[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt((1 + 0.2f * stat.PhysicsDmg) * dmg));
+            }
+        }
+    }
+    public void InstChain()
+    {
+        float dmg = 3f;
+        int no = 21;
+        float cool = 3;
+        if (skills[no] > 1) dmg *= 1.2f;
+        if (skills[no] > 2) dmg *= 1.2f;
+        if (skills[no] > 3) cool -= 0.5f;
+        if (skills[no] > 4) dmg *= 1.2f;
+        if (skills[no] > 5) dmg *= 1.2f;
+        if (skills[no] > 6) cool -= 0.5f;
+        if (skills[no] > 7) dmg *= 1.2f;
+        if (skills[no] > 8) dmg *= 1.2f;
+        if (skills[no] > 9) cool -= 0.5f;
+        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        Vector3 priV = transform.position + new Vector3(0, 0.5f);
+        var enemyslist = enemys.OrderBy(obj =>
+         {
+             return Vector3.Distance(transform.position, obj.transform.position);
+         }).ToList();
+        for (int i = 0; i < enemys.Length; i++)
+        {
+            Vector3 t = enemyslist[i].transform.position - priV;
+            float gd = Mathf.Atan2(t.y, t.x) * Mathf.Rad2Deg;
+            GameObject sq = Instantiate(chainPrefebs, (priV + enemyslist[i].transform.position) * 0.5f, Quaternion.Euler(0, 0, gd));
+            int count = Mathf.FloorToInt(Vector3.Distance(enemyslist[i].transform.position, priV)) * 2;
+            sq.GetComponent<SpriteRenderer>().size = new Vector2(count, 1);
+            enemyslist[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt((1 + 0.2f * stat.MagicDmg) * dmg));
+            priV = enemyslist[i].transform.position;
+        }
+        Invoke("InstChain", cool / (1 + 0.2f * stat.Cooltime));
+    }
+    public void InstWater()
+    {
+        float dmg = 1f;
+        int no = 22;
+        float cool = 14;
+        float scale=1;
+        int n=10;
+        float t=0.5f;
+        if (skills[no] > 1) scale *= 1.2f;
+        if (skills[no] > 2) dmg *= 1.2f;
+        if (skills[no] > 3) cool -= 1;
+        if (skills[no] > 4)
+        {
+            t -= 0.1f;
+            n += 3;
+        }
+     
+        if (skills[no] > 5) dmg *= 1.2f;
+        if (skills[no] > 6) scale *= 1.2f;
+        if (skills[no] > 7) dmg *= 1.2f;
+        if (skills[no] > 8) cool -= 1;
+        if (skills[no] > 9) { n += 3;
+            t -= 0.1f;
+        }
+        StartCoroutine(WaterCor(dmg, scale, n, t));
+        Invoke("InstWater", cool / (1 + 0.2f * stat.Cooltime));
+    }
+    IEnumerator WaterCor(float dmg,float scale,int n,float t)
+    {
+        int counter = 0;
+        while (counter < n)
+        {
+            counter++;
+            GameObject obj = Instantiate(waterPrefebs, new Vector2(transform.position.x + Random.Range(-600, 601) / 100, -4.3f), transform.rotation);
+            obj.GetComponent<Water>().set(dmg * (1 + 0.2f * stat.MagicDmg), scale);
+            yield return new WaitForSeconds(t);
         }
     }
 }

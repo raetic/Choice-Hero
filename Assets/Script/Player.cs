@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public bool isLeft;
     float teleportCool;
     public int reselect;
+    public int characterNo;
     private void Start()
     {   
         rigid = GetComponent<Rigidbody2D>();
@@ -41,9 +42,13 @@ public class Player : MonoBehaviour
         BM = GameObject.Find("BattleManager").GetComponent<BattleManager>();
         Hp = maxHp;
         Level = 1;
-        maxExp = 70;       
-        StartCoroutine("AttackCor");
+        maxExp = 70;
+        if (characterNo == 0) startAttack();
       
+    }
+    public void startAttack()
+    {
+        StartCoroutine("AttackCor");
     }
     IEnumerator AttackCor()
     {
