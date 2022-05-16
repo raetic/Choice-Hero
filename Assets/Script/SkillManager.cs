@@ -66,10 +66,7 @@ public class SkillManager : MonoBehaviour
     {
         player = GetComponent<Player>();
         stat = GetComponent<Stat>();
-        skills[0] = 1;
-     
-
-
+        skills[0] = 1;    
     }
     public void InstSkill(int s)
     {if (s == 0) player.GetComponent<Player>().startAttack();
@@ -99,7 +96,7 @@ public class SkillManager : MonoBehaviour
         if (skills[0] <2) return;
         
         GameObject newObj = Instantiate(smashPrefebs, weapon.transform.position, transform.rotation);
-        newObj.GetComponent<Attack>().DmgX(1+0.2f*stat.PhysicsDmg);
+        newObj.GetComponent<Attack>().DmgX(1+0.1f*stat.PhysicsDmg);
         if (skills[(int)skill.smash] > 2)
         {
             newObj.transform.localScale *= new Vector2(1.5f, 1.5f);
@@ -108,7 +105,7 @@ public class SkillManager : MonoBehaviour
                 GameObject windObj = Instantiate(smashPrefebs2, player.transform.position + new Vector3(0, 0.3f), transform.rotation);
                 windObj.GetComponent<Rigidbody2D>().AddForce(new Vector2(player.transform.localScale.x, 0) * -600);
                 windObj.transform.localScale *= new Vector2(player.transform.localScale.x * -1, 1);
-                windObj.GetComponent<Attack>().DmgX(1 + 0.2f * stat.PhysicsDmg);
+                windObj.GetComponent<Attack>().DmgX(1 + 0.1f * stat.PhysicsDmg);
                 if (skills[(int)skill.smash] > 4)
                 {
                     windObj.transform.localScale *= new Vector2(1.5f, 1.5f);
@@ -118,17 +115,17 @@ public class SkillManager : MonoBehaviour
                         if (skills[(int)skill.smash] > 6)
                         {
                            
-                            windObj.GetComponent<Attack>().DmgX(1.5f);
-                            newObj.GetComponent<Attack>().DmgX(1.5f);
+                            windObj.GetComponent<Attack>().DmgX(1.2f);
+                            newObj.GetComponent<Attack>().DmgX(1.2f);
                             if (skills[(int)skill.smash] > 7)
                             {
                                 GameObject windObj2 = Instantiate(smashPrefebs2, player.transform.position + new Vector3(0, 0.3f), transform.rotation);
                                 windObj2.GetComponent<Rigidbody2D>().AddForce(new Vector2(player.transform.localScale.x, 0) * 600);
                                 windObj2.transform.localScale *= new Vector2(player.transform.localScale.x * 1, 1);
                                 windObj2.transform.localScale *= new Vector2(1.5f, 1.5f);
-                                windObj2.GetComponent<Attack>().DmgX(1 + 0.2f * stat.PhysicsDmg);
+                                windObj2.GetComponent<Attack>().DmgX(1 + 0.1f * stat.PhysicsDmg);
                                 windObj2.GetComponent<Attack>().SetDestroyCount(1);
-                                windObj2.GetComponent<Attack>().DmgX(1.5f);
+                                windObj2.GetComponent<Attack>().DmgX(1.2f);
                                 if (skills[(int)skill.smash] > 8)
                                 {
                                     newObj.transform.localScale *= new Vector2(1.5f, 1.5f);
@@ -136,9 +133,9 @@ public class SkillManager : MonoBehaviour
                                     windObj2.transform.localScale *= new Vector2(1.5f, 1.5f);
                                     if(skills[(int)skill.smash] > 9)
                                     {
-                                        newObj.GetComponent<Attack>().DmgX(1.5f);
-                                        windObj.GetComponent<Attack>().DmgX(1.5f);
-                                        windObj2.GetComponent<Attack>().DmgX(1.5f);
+                                        newObj.GetComponent<Attack>().DmgX(1.2f);
+                                        windObj.GetComponent<Attack>().DmgX(1.2f);
+                                        windObj2.GetComponent<Attack>().DmgX(1.2f);
                                     }
                                 }
                             }
@@ -156,14 +153,14 @@ public class SkillManager : MonoBehaviour
     {
         float cool = 3;
         float speed = -400;
-        int pen = 1;
+        int pen = 0;
         float dmg = 1;
         float scale = 1;
         if (skills[(int)skill.wave] > 1) speed *= 1.3f;
         if (skills[(int)skill.wave] > 2) pen+=1;
         if (skills[(int)skill.wave] > 3) scale *= 1.5f;
         if (skills[(int)skill.wave] > 4) pen += 1;
-        if (skills[(int)skill.wave] > 5) dmg *= 1.5f;
+        if (skills[(int)skill.wave] > 5) dmg *= 1.2f;
         if (skills[(int)skill.wave] > 6) cool -= 1.5f;
         if (skills[(int)skill.wave] > 7) speed *= 1.5f ;
         if (skills[(int)skill.wave] > 8) scale *= 2; ;
@@ -172,11 +169,11 @@ public class SkillManager : MonoBehaviour
         waveObj.GetComponent<Rigidbody2D>().AddForce(new Vector2(player.transform.localScale.x, 0) * speed);
         waveObj.transform.localScale *= new Vector2(player.transform.localScale.x * -1, 1);
         waveObj.transform.localScale *= scale;
-        waveObj.GetComponent<Attack>().DmgX(dmg*(1+0.2f*stat.MagicDmg));
+        waveObj.GetComponent<Attack>().DmgX(dmg*(1+0.1f*stat.MagicDmg));
         waveObj.GetComponent<Attack>().SetDestroyCount(pen);
 
 
-        Invoke("InstWave", cool / (1+0.2f* stat.Cooltime));
+        Invoke("InstWave", cool / (1+0.1f* stat.Cooltime));
     }
     public void InstBolt()
     {
@@ -190,7 +187,7 @@ public class SkillManager : MonoBehaviour
         if (skills[(int)skill.bolt] > 2) n = 5;
         if (skills[(int)skill.bolt] > 3) scale *= 1.3f;
         if (skills[(int)skill.bolt] > 4) n = 8;
-        if (skills[(int)skill.bolt] > 5) dmg *= 1.3f;
+        if (skills[(int)skill.bolt] > 5) dmg *= 1.15f;
         if (skills[(int)skill.bolt] > 6) cool -= 2;
         if (skills[(int)skill.bolt] > 7) n = 10;
         if (skills[(int)skill.bolt] > 8) pen += 2;
@@ -203,10 +200,10 @@ public class SkillManager : MonoBehaviour
             //원을 기준으로 각각의 투사체마다 벡터를 정리
             boltObj.transform.localScale *= scale;
             boltObj.GetComponent<Rigidbody2D>().AddForce(dirVec*speed);
-            boltObj.GetComponent<Attack>().DmgX(dmg* (1 + 0.2f * stat.MagicDmg));
+            boltObj.GetComponent<Attack>().DmgX(dmg* (1 + 0.1f * stat.MagicDmg));
             boltObj.GetComponent<Attack>().SetDestroyCount(pen);
         }
-        Invoke("InstBolt", cool/ (1 + 0.2f * stat.Cooltime));
+        Invoke("InstBolt", cool/ (1 + 0.1f * stat.Cooltime));
     }
     public void InstRoot()
     {
@@ -218,7 +215,7 @@ public class SkillManager : MonoBehaviour
         if (skills[(int)skill.root] > 2) n = 3;
         if (skills[(int)skill.root] > 3) n = 4;
         if (skills[(int)skill.root] > 4) scale *= 1.3f;
-        if (skills[(int)skill.root] > 5) dmg *= 1.5f;
+        if (skills[(int)skill.root] > 5) dmg *= 1.3f;
         if (skills[(int)skill.root] > 6) n = 5;
         if (skills[(int)skill.root] > 7) cool -= 1f;
         if (skills[(int)skill.root] > 8) scale *= 1.3f;
@@ -235,9 +232,9 @@ public class SkillManager : MonoBehaviour
                 ,-3.8f), transform.rotation);
             Obj.transform.localScale *= new Vector2(player.transform.localScale.x * -1, 1);
             Obj.transform.localScale *= scale;
-            Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+            Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
         }
-        Invoke("InstRoot", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstRoot", cool / (1 + 0.1f * stat.Cooltime));
     }
     public void InstWood()
     {
@@ -261,15 +258,15 @@ public class SkillManager : MonoBehaviour
         Obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(player.transform.localScale.x, 0) * -speed);
         Obj.transform.localScale *= new Vector2(player.transform.localScale.x * -1, 1);
         Obj.transform.localScale *= woodScale;
-        Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.PhysicsDmg));
+        Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.PhysicsDmg));
         Obj.GetComponent<Attack>().SetDestroyCount(pen);
-        Obj.GetComponent<Wood>().set(pscale, pen, n, (1 + 0.2f * stat.PhysicsDmg));
-        Invoke("InstWood", cool / (1 + 0.2f * stat.Cooltime));
+        Obj.GetComponent<Wood>().set(pscale, pen, n, (1 + 0.1f * stat.PhysicsDmg));
+        Invoke("InstWood", cool / (1 + 0.1f * stat.Cooltime));
     }
     public void InstThun()
     {
         int no = 5;
-        float cool = 7;
+        float cool = 9;
         float dmg = 1;
         float scale = 1;
         int n = 2;
@@ -279,18 +276,18 @@ public class SkillManager : MonoBehaviour
         if (skills[no] > 4) n = 4;
         if (skills[no] > 5) cool--;
         if (skills[no] > 6) n = 5;
-        if (skills[no] > 7) scale *= 1.5f;
-        if (skills[no] > 8) dmg *= 1.5f;
+        if (skills[no] > 7) scale *= 1.3f;
+        if (skills[no] > 8) dmg *= 1.2f;
         if (skills[no] > 9) n = 7;
         for (int i = 0; i < n; i++)
         {
             float rand = Random.Range(-60, 60);
-            GameObject Obj = Instantiate(thunPrefebs, new Vector3(player.transform.position.x+rand/10, -3.7f), transform.rotation);
+            GameObject Obj = Instantiate(thunPrefebs, new Vector3(player.transform.position.x+rand/10, -3.7f+(scale-1)*0.5f), transform.rotation);
             //Obj.GetComponent<Rigidbody2D>().AddForce(Vector2.down*600);
             Obj.transform.localScale *= scale;
-            Obj.transform.GetChild(0).GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+            Obj.transform.GetChild(0).GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
         }
-        Invoke("InstThun", cool / (1 + 0.2f*stat.Cooltime));
+        Invoke("InstThun", cool / (1 + 0.1f*stat.Cooltime));
     }
     public void InstNinja()
     {
@@ -304,7 +301,7 @@ public class SkillManager : MonoBehaviour
         if (skills[no] > 2) pen++;
         if (skills[no] > 3) scale*=1.3f;
         if (skills[no] > 4) pen++;
-        if (skills[no] > 5) dmg *= 1.5f;
+        if (skills[no] > 5) dmg *= 1.3f;
         if (skills[no] > 6) pen++;
         if (skills[no] > 7) scale *= 1.3f;
         if (skills[no] > 8) cool--;
@@ -327,9 +324,9 @@ public class SkillManager : MonoBehaviour
         }
             Obj.transform.localScale *= scale;
             Obj.GetComponent<Attack>().SetDestroyCount(pen);
-            Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.PhysicsDmg));
+            Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.PhysicsDmg));
         
-        Invoke("InstNinja", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstNinja", cool / (1 + 0.1f * stat.Cooltime));
     }
     public void InstAx()
     {
@@ -339,22 +336,22 @@ public class SkillManager : MonoBehaviour
         float dmg = 1;
         float scale = 1;
         float speed = 300;
-        if (skills[no] > 1) dmg *= 1.3f;
+        if (skills[no] > 1) dmg *= 1.5f;
         if (skills[no] > 2) scale *= 1.2f;
         if (skills[no] > 3) speed *= 1.2f;
-        if (skills[no] > 4) dmg *= 1.3f;
+        if (skills[no] > 4) dmg *= 1.5f;
         if (skills[no] > 5) speed *= 1.3f;
         if (skills[no] > 6) scale *= 1.2f;
         if (skills[no] > 7) cool -= 2;
-        if (skills[no] > 8) dmg *= 1.3f;
+        if (skills[no] > 8) dmg *= 1.5f;
         if (skills[no] > 9) scale *= 1.5f;
 
 
         GameObject Obj = Instantiate(axPrefebs, player.transform.position + new Vector3(0, 0.5f), transform.rotation);
         Obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(player.transform.localScale.x * -1 * speed, 0));     
         Obj.transform.localScale *= scale;
-        Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.PhysicsDmg));
-       StartCoroutine(ReAx(cool / (1 + 0.2f*stat.Cooltime)));
+        Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.PhysicsDmg));
+       StartCoroutine(ReAx(cool / (1 + 0.1f*stat.Cooltime)));
     }
    IEnumerator ReAx(float cool)
     {   int t = 0;
@@ -385,7 +382,7 @@ public class SkillManager : MonoBehaviour
     {
        
         int no = 8;
-        float cool = 2f;
+        float cool = 1.5f;
         float dmg = 1;
         float scale = 1;
         float speed = 250;
@@ -408,9 +405,9 @@ public class SkillManager : MonoBehaviour
         GameObject Obj = Instantiate(icePrefebs, player.transform.position + new Vector3(0, 0.5f), quaternion);
         Obj.transform.GetComponent<Rigidbody2D>().AddForce(speed*newDirection);
         Obj.transform.localScale *= scale;
-        Obj.transform.GetChild(0).GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+        Obj.transform.GetChild(0).GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
         Obj.transform.GetChild(0).GetComponent<Attack>().SetDestroyCount(pen);
-        Invoke("InstIce",cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstIce",cool / (1 + 0.1f * stat.Cooltime));
     }
     public void SmashDanceLevelUp(int i)
     {
@@ -448,34 +445,34 @@ public class SkillManager : MonoBehaviour
             GameObject Obj = Instantiate(groundPrefebs,new Vector2(transform.position.x+transform.localScale.x*-3,-3.5f), transform.rotation);
          Obj.transform.localScale = transform.localScale;
         Obj.transform.localScale *= scale;
-            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
             Obj.transform.GetComponent<RageGround>().upPower = power;
         if (n == 2) {
             GameObject Obj2 = Instantiate(groundPrefebs, new Vector2(transform.position.x + transform.localScale.x * 3, -3.5f), transform.rotation);
             Obj2.transform.localScale = new Vector2(transform.localScale.x*-1,1);
             Obj2.transform.localScale *= scale;
-            Obj2.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+            Obj2.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
             Obj2.transform.GetComponent<RageGround>().upPower = power;
         }
-        Invoke("InstRageGround", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstRageGround", cool / (1 + 0.1f * stat.Cooltime));
     }
     public void InstHoly()
     {
 
         int no = 11;
-        float cool = 6f;
+        float cool = 8f;
         float dmg = 1;
         float scale = 1;
         int n = 1;
 
 
-        if (skills[no] > 1) dmg *= 1.2f;
-        if (skills[no] > 2) dmg *= 1.3f;
-        if (skills[no] > 3) cool -= 0.5f;
+        if (skills[no] > 1) dmg *= 1.1f;
+        if (skills[no] > 2) dmg *= 1.1f;
+        if (skills[no] > 3) cool -= 1f;
         if (skills[no] > 4) scale *= 1.3f;
         if (skills[no] > 5) n = 2;
-        if (skills[no] > 6) dmg *= 1.3f;
-        if (skills[no] > 7) cool -= 0.5f;
+        if (skills[no] > 6) dmg *= 1.1f;
+        if (skills[no] > 7) cool -=1f;
         if (skills[no] > 8) n = 3;
         if (skills[no] > 9) scale *= 1.5f;
         Collider2D[] cols = Physics2D.OverlapBoxAll(transform.position, new Vector2(12, 12), 0, enemyMask);
@@ -486,11 +483,11 @@ public class SkillManager : MonoBehaviour
 
         if (nearObj != null)
         {
-            Vector3 v = nearObj.transform.position+new Vector3(0,0.2f);
+            Vector3 v = nearObj.transform.position+new Vector3(0,0.1f);
             StartCoroutine(HolyCor(n, scale, dmg,v));
         }
       
-        Invoke("InstHoly", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstHoly", cool / (1 + 0.1f * stat.Cooltime));
     }
     IEnumerator HolyCor(int n,float scale,float dmg,Vector3 v)
     {
@@ -500,7 +497,7 @@ public class SkillManager : MonoBehaviour
             t++;
             GameObject Obj = Instantiate(holyPrefebs, v, transform.rotation);
             Obj.transform.localScale *= scale;
-            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
             yield return new WaitForSeconds(1);
         }
     }
@@ -528,9 +525,9 @@ public class SkillManager : MonoBehaviour
         GameObject Obj = Instantiate(hammerPrefebs, transform.position+new Vector3(0,0.5f), Quaternion.Euler(0,0,45));
         Obj.GetComponent<Turn>().startRotate = 45;
         if (transform.localScale.x < 0) Obj.GetComponent<Turn>().rotateSpeed *= -1;
-        Obj.transform.GetChild(0).GetComponent<Hammer>().setting(size, dmg * (1 + 0.2f * stat.PhysicsDmg), upPower);
+        Obj.transform.GetChild(0).GetComponent<Hammer>().setting(size, dmg * (1 + 0.1f * stat.PhysicsDmg), upPower);
         
-        Invoke("InstHammer", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstHammer", cool / (1 + 0.1f * stat.Cooltime));
     }
     public void InstTonado()
     {
@@ -554,9 +551,9 @@ public class SkillManager : MonoBehaviour
         Obj.transform.GetComponent<Tonado>().destroyTime = time;
         Obj.GetComponent<Tonado>().speed = speed;
         Obj.transform.localScale *= scale;
-        Obj.transform.GetChild(0).GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+        Obj.transform.GetChild(0).GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
 
-        Invoke("InstTonado", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstTonado", cool / (1 + 0.1f * stat.Cooltime));
     }
     public void InstClaw()
     {
@@ -582,7 +579,7 @@ public class SkillManager : MonoBehaviour
         for(int i = 0; i < nearObj.Count; i++)
         {
             if (i == n) break;
-            nearObj[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt(dmg*(1+stat.PhysicsDmg*0.2f)));
+            nearObj[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt(dmg*(1+stat.PhysicsDmg*0.1f)));
             GameObject Obj = Instantiate(Claw, nearObj[i].transform.position, transform.rotation);
         }
 
@@ -598,7 +595,7 @@ public class SkillManager : MonoBehaviour
         if (skills[no] > 1) speed += 50;
         if (skills[no] > 2) n = 5;
         if (skills[no] > 3) scale *= 1.2f;
-        if (skills[no] > 4) dmg *= 1.3f;
+        if (skills[no] > 4) speed+=50;
         if (skills[no] > 5) n = 7;
         if (skills[no] > 6) scale *= 1.2f;
         if (skills[no] > 7) dmg *= 1.3f;
@@ -610,11 +607,11 @@ public class SkillManager : MonoBehaviour
             float xspeed = Random.Range(-5, 5)*100;
             GameObject Obj = Instantiate(leafPrefebs, new Vector3(transform.position.x+x/10, 3), transform.rotation);
             Obj.transform.localScale *= scale;
-            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
             Obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(xspeed, -speed));
         }
      
-        Invoke("InstLeaf", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstLeaf", cool / (1 + 0.1f * stat.Cooltime));
     }
 
     public void InstMeteo()
@@ -623,16 +620,16 @@ public class SkillManager : MonoBehaviour
         float dmg = 1;
         int n = 1;
         float scale = 1;
-        float cool = 6;
+        float cool = 8;
         float speed = 400;
         if (skills[no] > 1) scale *= 1.2f;
         if (skills[no] > 2) n = 2;
-        if (skills[no] > 3) dmg *= 1.3f;
-        if (skills[no] > 4) cool -= 0.7f;
+        if (skills[no] > 3) dmg *= 1.15f;
+        if (skills[no] > 4) cool -= 1f;
         if (skills[no] > 5) n = 3;
         if (skills[no] > 6) scale *= 1.2f;
-        if (skills[no] > 7) dmg *= 1.3f;
-        if (skills[no] > 8) cool -= 0.7f;
+        if (skills[no] > 7) dmg *= 1.15f;
+        if (skills[no] > 8) cool -= 1f;
         if (skills[no] > 9) n = 4;
         for (int i = 0; i < n; i++)
         {
@@ -649,18 +646,18 @@ public class SkillManager : MonoBehaviour
                 Obj.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 300));
             }
             Obj.transform.localScale *= scale;
-            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.MagicDmg));
+            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
             Obj.GetComponent<Rigidbody2D>().AddForce(v);
-            Obj.GetComponent<Meteo>().set(scale, dmg * (1 + 0.2f * stat.MagicDmg));
+            Obj.GetComponent<Meteo>().set(scale, dmg * (1 + 0.1f * stat.MagicDmg));
         }
 
-        Invoke("InstMeteo", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstMeteo", cool / (1 + 0.1f * stat.Cooltime));
     }
     public void InstSwordRain()
     {
         float cool = 5;
         StartCoroutine("SwordRain");
-        Invoke("InstSwordRain", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstSwordRain", cool / (1 + 0.1f * stat.Cooltime));
     }
 
     IEnumerator SwordRain()
@@ -682,7 +679,7 @@ public class SkillManager : MonoBehaviour
         for (int i = 0; i < n; i++)
         {         
             GameObject Obj = Instantiate(swordPrefebs, transform.position, Quaternion.Euler(new Vector3(0, 0, 45)));
-            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.PhysicsDmg));
+            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.PhysicsDmg));
             Obj.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 600);
             if (over) Obj.GetComponent<SwordRain>().over = true;
             float t = 0.5f / n;
@@ -696,7 +693,7 @@ public class SkillManager : MonoBehaviour
         float cool = 6;
         if (skills[18] > 5) cool -= 1;
         StartCoroutine("ShurikenTonado");
-        Invoke("InstShurikenTonado", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstShurikenTonado", cool / (1 + 0.1f * stat.Cooltime));
     }
 
     IEnumerator ShurikenTonado()
@@ -721,7 +718,7 @@ public class SkillManager : MonoBehaviour
             //원을 기준으로 각각의 투사체마다 벡터를 정리
             Obj.transform.localScale *= scale;
             Obj.GetComponent<Attack>().SetDestroyCount(pen);
-            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.2f * stat.PhysicsDmg));
+            Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.PhysicsDmg));
             Obj.GetComponent<Rigidbody2D>().AddForce(dirVec * 550);            
             float t = 2 / n;
             yield return new WaitForSeconds(t);
@@ -733,7 +730,7 @@ public class SkillManager : MonoBehaviour
         int no = 19;
         if (skills[no] == 1) {
             GameObject myolObj = Instantiate(myolPrefebs, transform.position, transform.rotation);
-            myolObj.GetComponent<Attack>().DmgX(1 + 0.2f * stat.PhysicsDmg);
+            myolObj.GetComponent<Attack>().DmgX(1 + 0.1f * stat.PhysicsDmg);
             myolList.Add(myolObj);
         }
         if (skills[no] == 2) {
@@ -798,7 +795,7 @@ public class SkillManager : MonoBehaviour
            for(int i = 0; i < cols.Length; i++)
             {
                 Instantiate(castPrefebs[1], cols[i].transform.position, transform.rotation);
-                cols[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt((1 + 0.2f * stat.PhysicsDmg) * dmg));
+                cols[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt((1 + 0.1f * stat.PhysicsDmg) * dmg));
             }
 
         }
@@ -808,7 +805,7 @@ public class SkillManager : MonoBehaviour
             {
                 Instantiate(castPrefebs[1], cols[i].transform.position+new Vector3(0.3f,-0.3f), transform.rotation);
                 Instantiate(castPrefebs[1], cols[i].transform.position + new Vector3(-0.3f, 0.3f), transform.rotation);
-                cols[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt((1 + 0.2f * stat.PhysicsDmg) * dmg));
+                cols[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt((1 + 0.1f * stat.PhysicsDmg) * dmg));
             }
         }
     }
@@ -839,10 +836,10 @@ public class SkillManager : MonoBehaviour
             GameObject sq = Instantiate(chainPrefebs, (priV + enemyslist[i].transform.position) * 0.5f, Quaternion.Euler(0, 0, gd));
             int count = Mathf.FloorToInt(Vector3.Distance(enemyslist[i].transform.position, priV)) * 2;
             sq.GetComponent<SpriteRenderer>().size = new Vector2(count, 1);
-            enemyslist[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt((1 + 0.2f * stat.MagicDmg) * dmg));
+            enemyslist[i].GetComponent<Enemy>().OnHit(Mathf.FloorToInt((1 + 0.1f * stat.MagicDmg) * dmg));
             priV = enemyslist[i].transform.position;
         }
-        Invoke("InstChain", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstChain", cool / (1 + 0.1f * stat.Cooltime));
     }
     public void InstWater()
     {
@@ -853,7 +850,7 @@ public class SkillManager : MonoBehaviour
         int n=10;
         float t=0.5f;
         if (skills[no] > 1) scale *= 1.2f;
-        if (skills[no] > 2) dmg *= 1.2f;
+        if (skills[no] > 2) dmg *= 1.1f;
         if (skills[no] > 3) cool -= 1;
         if (skills[no] > 4)
         {
@@ -861,15 +858,15 @@ public class SkillManager : MonoBehaviour
             n += 3;
         }
      
-        if (skills[no] > 5) dmg *= 1.2f;
+        if (skills[no] > 5) dmg *= 1.1f;
         if (skills[no] > 6) scale *= 1.2f;
-        if (skills[no] > 7) dmg *= 1.2f;
+        if (skills[no] > 7) dmg *= 1.1f;
         if (skills[no] > 8) cool -= 1;
         if (skills[no] > 9) { n += 3;
             t -= 0.1f;
         }
         StartCoroutine(WaterCor(dmg, scale, n, t));
-        Invoke("InstWater", cool / (1 + 0.2f * stat.Cooltime));
+        Invoke("InstWater", cool / (1 + 0.1f * stat.Cooltime));
     }
     IEnumerator WaterCor(float dmg,float scale,int n,float t)
     {
@@ -878,7 +875,7 @@ public class SkillManager : MonoBehaviour
         {
             counter++;
             GameObject obj = Instantiate(waterPrefebs, new Vector2(transform.position.x + Random.Range(-600, 601) / 100, -4.3f), transform.rotation);
-            obj.GetComponent<Water>().set(dmg * (1 + 0.2f * stat.MagicDmg), scale);
+            obj.GetComponent<Water>().set(dmg * (1 + 0.1f * stat.MagicDmg), scale);
             yield return new WaitForSeconds(t);
         }
     }

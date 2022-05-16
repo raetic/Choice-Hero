@@ -13,8 +13,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject myWeapon;
     Rigidbody2D rigid;
     [SerializeField] GameObject teleportPrefebs;
-    float Hp;
-    [SerializeField] float maxHp;
+    public float Hp;
+    public float maxHp;
     [SerializeField] GameObject dmgPr;
     [SerializeField] int farming;
     
@@ -54,14 +54,14 @@ public class Player : MonoBehaviour
     {
         while(true)
         {
-            float attackCool = 1.5f / (1 + 0.2f * stat.AttackSpeed);
+            float attackCool = 1.5f / (1 + 0.1f * stat.AttackSpeed);
             anim.SetTrigger("Attack");                           
             yield return new WaitForSeconds(0.1f);
             
             SM.InstSmash();
 
             GameObject weapon = Instantiate(myWeapon, weaponPoint.transform.position, transform.rotation);
-            weapon.GetComponent<Attack>().DmgX(1 + 0.2f * stat.PhysicsDmg);
+            weapon.GetComponent<Attack>().DmgX(1 + 0.1f * stat.PhysicsDmg);
             yield return new WaitForSeconds(0.2f);
            
             yield return new WaitForSeconds(attackCool-0.3f);
@@ -87,13 +87,13 @@ public class Player : MonoBehaviour
         if (Time.timeScale == 0) return;
         if (Input.GetKey(KeyCode.LeftArrow)||isLeft)
         {
-           transform.Translate(Vector2.left * 0.07f * (1 + 0.15f * stat.Speed));
+           transform.Translate(Vector2.left * 0.07f * (1 + 0.1f * stat.Speed));
             anim.SetFloat("RunState", 0.5f);
             transform.localScale = new Vector2(1, 1);
         }
         else if (Input.GetKey(KeyCode.RightArrow)||isRight)
         {
-            transform.Translate(Vector2.right * 0.07f * (1+0.15f*stat.Speed));
+            transform.Translate(Vector2.right * 0.07f * (1+0.1f*stat.Speed));
             transform.localScale = new Vector2(-1, 1);
             anim.SetFloat("RunState", 0.5f);
         }
@@ -106,36 +106,16 @@ public class Player : MonoBehaviour
     }
     public void Jump()
     {
-        if (stat.Teleport == 0)
-        {
+       
             if ((2 + stat.JumpCount) > curJumpCount)
             {
                 curJumpCount++;
                 rigid.velocity = Vector2.zero;
                 rigid.AddForce(Vector2.up * jumpPower);
             }
-        }
-        else
-        {
-            if (teleportCool <= 0)
-            {
-                GameObject t = Instantiate(teleportPrefebs, transform.position+new Vector3(0,0.5f), transform.rotation);
-                if (stat.Teleport == 1) teleportCool = 1;
-                else teleportCool = 0.5f;
-                if(!isRight&&!isLeft)
-                transform.position += new Vector3(0, 3f);
-                if(isRight)
-                {
-                    transform.position += new Vector3(2, 0);
-                }
-                if (isLeft)
-                {
-                    transform.position += new Vector3(-2, 0);
-                }
-                hpBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1f);
-                GameObject t2 = Instantiate(teleportPrefebs, transform.position + new Vector3(0, 0.5f), transform.rotation);
-            }
-        }
+       
+           
+        
     }
     void Update()
     {
@@ -146,10 +126,31 @@ public class Player : MonoBehaviour
        
 
     }
+    public void Tel()
+    {
+        if (teleportCool <= 0)
+        {
+            GameObject t = Instantiate(teleportPrefebs, transform.position + new Vector3(0, 0.5f), transform.rotation);
+            if (stat.Teleport == 1) teleportCool = 1;
+            else teleportCool = 0.5f;
+            if (!isRight && !isLeft)
+                transform.position += new Vector3(0, 3f);
+            if (isRight)
+            {
+                transform.position += new Vector3(2, 0);
+            }
+            if (isLeft)
+            {
+                transform.position += new Vector3(-2, 0);
+            }
+            hpBar.transform.position = new Vector3(transform.position.x, transform.position.y + 1f);
+            GameObject t2 = Instantiate(teleportPrefebs, transform.position + new Vector3(0, 0.5f), transform.rotation);
+        }
+    }
     public void onHit(int dmg)
     {
         
-        dmg = Mathf.RoundToInt(dmg /(1+0.2f*stat.AttackedDmg));      
+        dmg = Mathf.RoundToInt(dmg /(1+0.1f*stat.AttackedDmg));      
         GameObject Dmg = Instantiate(dmgPr, transform.position + new Vector3(0, 1.5f), transform.rotation);
         Dmg.GetComponent<Dmg>().SetText(dmg,true);
         Hp -= dmg;

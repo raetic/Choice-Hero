@@ -13,18 +13,17 @@ public class LevelUp : MonoBehaviour
     [SerializeField] TextMeshProUGUI[] lv;
     [SerializeField] TextMeshProUGUI[] type;
     [SerializeField] Image[] selectImages;
+    [SerializeField] GameObject teleport;
     Data data = new Data();
     BattleManager BM;
-
-    int[] skills = new int[30];
-    int[] stats = new int[30];
+    public int skillCount;
     [SerializeField] Sprite[] statIcon;
-    [SerializeField] Sprite[] skillIcon;
+    public Sprite[] skillIcon;
     List<int> UpList = new List<int>();
     [SerializeField] TextMeshProUGUI reselctCount;
     int[] curReward = new int[3];
-    int magic;
-    int physics=1;
+   public int magic;
+   public int physics=1;
     [SerializeField] GameObject player;
     private void Awake()
     {
@@ -38,7 +37,7 @@ public class LevelUp : MonoBehaviour
         UpList.Add(101);
         UpList.Add(105);
         UpList.Add(106);
-
+        skillCount = 1;
     }
     IEnumerator SelectCor()
     {
@@ -167,7 +166,7 @@ public class LevelUp : MonoBehaviour
     }
     public void StatUp(int stat)
     {
-        if (stat == 8 && st.Stats[stat] == 0) player.GetComponent<Rigidbody2D>().gravityScale = 2;
+        if (stat == 8 && st.Stats[stat] == 0) teleport.SetActive(true);
        st.Stats[stat]++;
        if (st.Stats[stat] == data.statData[stat].max)
         {
@@ -188,6 +187,17 @@ public class LevelUp : MonoBehaviour
         if (sm.Skills[skill] == 0)
         {
             sm.InstSkill(skill);
+            skillCount++;
+        }
+        if (skillCount == 8)
+        {
+           foreach(var value in UpList)
+            {
+                if (value < 100)
+                {if(sm.Skills[value]==0)
+                    UpList.Remove(value);
+                }
+            }
         }
         if (skill == 9)
         {
@@ -235,10 +245,10 @@ public class LevelUp : MonoBehaviour
             UpList.Add(5);
             UpList.Add(10);
         }
-        if (magic == 10)
+        if (magic == 20)
         {
           
-          //  UpList.Add(108);
+          UpList.Add(108);
         }
         if (magic == 15)
         {
@@ -304,8 +314,9 @@ public class LevelUp : MonoBehaviour
         }
     }
 }
-class Data
+public class Data
 {
+
     public struct statdata
     {
         public string Name;

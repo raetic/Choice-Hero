@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 4827754900674648932}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: -3.64, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 540
+  startRotate: 0
 --- !u!114 &4827754900674648930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,6 +120,9 @@ MonoBehaviour:
   isWood: 0
   StartTime: 0
   isNin: 1
+  notPush: 0
+  isMeteo: 0
+  notDestoryInBorder: 0
 --- !u!50 &4827754900674648931
 Rigidbody2D:
   serializedVersion: 4

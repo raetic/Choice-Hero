@@ -73,8 +73,8 @@ public class Slime : MonoBehaviour
         for (int i = 0; i < 2; i++)
         {
             GameObject obj = Instantiate(miniSlime, transform.position + new Vector3((0.5f - i) * 2, 1), transform.rotation);
-            if (v == -1) obj.GetComponent<Slime>().GoRight();
-            else obj.GetComponent<Slime>().GoLeft();
+            if (v == -1) obj.GetComponent<Slime>().GoLeft();
+            else obj.GetComponent<Slime>().GoRight();
         }
         Destroy(gameObject);
 

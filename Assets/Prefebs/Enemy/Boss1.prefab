@@ -169,7 +169,7 @@ MonoBehaviour:
   maxHp: 100
   dmg: {fileID: 703140322808896852, guid: f94100e3d40ff4e4882d102514cb8643, type: 3}
   Atk: 7
-  expMount: 500
+  expMount: 1000
   isMove: 1
   exp: {fileID: 3648685069295115079, guid: 287168bfe33fcb541b61b9b6af155268, type: 3}
   potion:

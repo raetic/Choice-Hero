@@ -146,8 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031b735c98b19f548b084a7f86c31074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
-  maxHp: 20
+  hp: 30
+  maxHp: 30
   dmg: {fileID: 703140322808896852, guid: f94100e3d40ff4e4882d102514cb8643, type: 3}
   Atk: 5
   expMount: 100
@@ -160,6 +160,7 @@ MonoBehaviour:
   isBoss: 0
   isAir: 0
   isSl: 0
+  notPush: 0
 --- !u!114 &9044934102902607419
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a0e6d03b8261b4ebfd681648cece8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.8
+  speed: 2.2
 --- !u!95 &7940834227976885317
 Animator:
   serializedVersion: 3

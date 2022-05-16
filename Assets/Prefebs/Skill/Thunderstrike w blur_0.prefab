@@ -196,3 +196,6 @@ MonoBehaviour:
   isWood: 0
   StartTime: 0.4
   isNin: 0
+  notPush: 1
+  isMeteo: 0
+  notDestoryInBorder: 0

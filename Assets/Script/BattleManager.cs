@@ -153,7 +153,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeHardNightmare();
             }
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.6f);
         }
         StartCoroutine("Phase7");
     }
@@ -171,7 +171,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeHardNightmare();
             }
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.7f);
         }
         StartCoroutine("Phase8");
     }
@@ -194,7 +194,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeHardNightmare();
             }
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.4f);
         }
         StartCoroutine("Phase9");
     }
@@ -234,7 +234,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeHardNightmare();
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.4f);
         }
         StartCoroutine("Phase11");
     }
@@ -252,7 +252,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeSlime();
             }
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
         }
         StartCoroutine("Phase12");
     }
@@ -270,7 +270,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeSkull();
             }
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(0.5f);
         }
         StartCoroutine("Phase13");
     }
@@ -288,7 +288,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeSkull();
             }
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.4f);
         }
         StartCoroutine("Boss3");
     }
@@ -415,7 +415,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeHellNightMare();
             }
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.3f);
         }
         StartCoroutine("Phase16");
     }
@@ -438,7 +438,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeSkull();
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
         }
         StartCoroutine("Phase17");
     }
@@ -456,7 +456,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeSkull();
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
         }
         StartCoroutine("Boss3");
     }
