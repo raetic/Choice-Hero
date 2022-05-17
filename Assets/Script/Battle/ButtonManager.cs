@@ -13,8 +13,10 @@ public class ButtonManager : MonoBehaviour
     SkillManager skillManager;
     Stat stat;
     Data d = new Data();
+    bool alreadyPause;
     public void Pause()
-    {
+    {if (Time.timeScale == 0) alreadyPause = true;
+        else alreadyPause = false;
         PauseView.SetActive(true);
         Time.timeScale = 0;
         List<int> haveSkill = new List<int>();
@@ -59,6 +61,7 @@ public class ButtonManager : MonoBehaviour
     public void Resume()
     {
         PauseView.SetActive(false);
+        if(!alreadyPause)
         Time.timeScale = 1;
     }
 

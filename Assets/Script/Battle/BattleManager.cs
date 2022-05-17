@@ -16,6 +16,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject warm;
     [SerializeField] GameObject flyeye;
     [SerializeField] GameObject darkelf;
+    [SerializeField] GameObject elf2;
     [SerializeField] GameObject slime;
     [SerializeField] GameObject skull;
     [SerializeField] GameObject fireskull;
@@ -130,7 +131,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeNightMare();
             }
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.8f);
         }
         StartCoroutine("Boss1");
     }
@@ -153,7 +154,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeHardNightmare();
             }
-            yield return new WaitForSeconds(0.6f);
+            yield return new WaitForSeconds(0.8f);
         }
         StartCoroutine("Phase7");
     }
@@ -171,7 +172,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeHardNightmare();
             }
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(0.8f);
         }
         StartCoroutine("Phase8");
     }
@@ -194,7 +195,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeHardNightmare();
             }
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.5f);
         }
         StartCoroutine("Phase9");
     }
@@ -405,7 +406,7 @@ public class BattleManager : MonoBehaviour
             p++;
             if (p % 10 == 0)
             {
-                MakeElf();
+                MakeElf2();
             }
             else if (p % 7 == 0)
             {
@@ -438,7 +439,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeSkull();
             }
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(0.2f);
         }
         StartCoroutine("Phase17");
     }
@@ -454,7 +455,7 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                MakeSkull();
+                MakeElf2();
             }
             yield return new WaitForSeconds(0.3f);
         }
@@ -521,6 +522,11 @@ public class BattleManager : MonoBehaviour
     {
         int rand = Random.Range(0, 2);
         GameObject n = Instantiate(darkelf, SpawnPoint[rand].transform.position, transform.rotation);
+    }
+    public void MakeElf2()
+    {
+        int rand = Random.Range(0, 2);
+        GameObject n = Instantiate(elf2, SpawnPoint[rand].transform.position, transform.rotation);
     }
     public void MakeSlime()
     {

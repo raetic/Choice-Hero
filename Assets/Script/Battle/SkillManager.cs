@@ -156,7 +156,7 @@ public class SkillManager : MonoBehaviour
         int pen = 0;
         float dmg = 1;
         float scale = 1;
-        if (skills[(int)skill.wave] > 1) speed *= 1.3f;
+        if (skills[(int)skill.wave] > 1) pen+=1;
         if (skills[(int)skill.wave] > 2) pen+=1;
         if (skills[(int)skill.wave] > 3) scale *= 1.5f;
         if (skills[(int)skill.wave] > 4) pen += 1;
@@ -266,7 +266,7 @@ public class SkillManager : MonoBehaviour
     public void InstThun()
     {
         int no = 5;
-        float cool = 9;
+        float cool = 6;
         float dmg = 1;
         float scale = 1;
         int n = 2;
@@ -382,23 +382,23 @@ public class SkillManager : MonoBehaviour
     {
        
         int no = 8;
-        float cool = 1.5f;
+        float cool = 1f;
         float dmg = 1;
         float scale = 1;
         float speed = 250;
         int n = 4;
         int pen = 0;
         curIce++;
-        
-        if (skills[no] > 1) speed *= 1.3f;
+
+        if (skills[no] > 1) pen++;
         if (skills[no] > 2) scale *= 1.2f;
         if (skills[no] > 3) pen++;
-        if (skills[no] > 4) cool -= 0.5f;
+        if (skills[no] > 4) cool -= 0.3f;
         if (skills[no] > 5) n = 6;
         if (skills[no] > 6) pen++;
         if (skills[no] > 7) dmg *= 1.5f;
         if (skills[no] > 8) scale *= 1.3f;
-        if (skills[no] > 9) n = 8;
+        if (skills[no] > 9) { n = 8; cool -= 0.3f; }
         if (curIce == n) curIce = 0;
         var quaternion = Quaternion.Euler(0, 0, curIce * (360/n));
         Vector2 newDirection = quaternion * Vector2.right;

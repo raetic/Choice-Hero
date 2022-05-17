@@ -35,7 +35,7 @@ public class Boss2 : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         myEnemy.isMove = true;
         anim.SetBool("isJump", true);
-        Invoke("Think", 4);
+        Invoke("Think", 3);
     }
     void Think()
     {
@@ -46,7 +46,7 @@ public class Boss2 : MonoBehaviour
         {
             anim.SetTrigger("Attack1");
             Invoke("Attack", 0.3f);
-            Invoke("Think", 1f);
+            Invoke("Think", 1.5f);
             Invoke("noAttack", 0.5f);
         }
         else
@@ -108,7 +108,7 @@ public class Boss2 : MonoBehaviour
                         turn = 0;
                     }
                 }
-                transform.Translate(Vector2.right * v * 3f * Time.deltaTime);
+                transform.Translate(Vector2.right * v * 3.5f * Time.deltaTime);
             }
        
         }

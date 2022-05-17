@@ -194,7 +194,8 @@ public class LevelUp : MonoBehaviour
            foreach(var value in UpList)
             {
                 if (value < 100)
-                {if(sm.Skills[value]==0)
+                {
+                    if(sm.Skills[value]==0)
                     UpList.Remove(value);
                 }
             }
@@ -260,6 +261,11 @@ public class LevelUp : MonoBehaviour
         {
             UpList.Add(15);
             UpList.Add(16);
+        }
+        if (magic == 40)
+        {
+            UpList.Add(21);
+            UpList.Add(22);
         }
     }
     public void PhysicsUp()
@@ -332,14 +338,14 @@ public class Data
     public statdata[] statData = new statdata[9]
     {
         new statdata("투명 날개","공중에서 점프 가능한 횟수가 늘어납니다.",5),
-        new statdata("날렵한 칼날","물리 공격력이 증가합니다.",10),
-        new statdata("마법의 깨달음","마법 공격력이 증가합니다.",10),
-        new statdata("암기의 원석","스킬 쿨타임을 감소됩니다.",10),
-        new statdata("민첩의 물약","공격속도가 증가합니다.",10),
+        new statdata("날렵한 칼날","물리 공격력이 증가합니다.",20),
+        new statdata("마법의 깨달음","마법 공격력이 증가합니다.",20),
+        new statdata("암기의 원석","스킬 쿨타임을 감소됩니다.",15),
+        new statdata("민첩의 물약","공격속도가 증가합니다.",15),
         new statdata("월등한 방패","피격 데미지가 감소됩니다.",10),
         new statdata("지식의 목걸이","경험치 획득량이 증가합니다.",10),
         new statdata("바람같은 움직임","이동속도가 증가합니다.",5),
-        new statdata("텔레포트","점프가 텔레포트로 바뀝니다.",2),
+        new statdata("텔레포트","텔레포트 사용이 가능합니다.",2),
     };
    public struct skilldata
     {

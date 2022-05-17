@@ -50,8 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031b735c98b19f548b084a7f86c31074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 400
-  maxHp: 400
+  hp: 800
+  maxHp: 800
   dmg: {fileID: 703140322808896852, guid: f94100e3d40ff4e4882d102514cb8643, type: 3}
   Atk: 12
   expMount: 1500
