@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class ButtonManager : MonoBehaviour
 {
     Player p;
@@ -47,7 +48,7 @@ public class ButtonManager : MonoBehaviour
         stats.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "체력:" + Mathf.CeilToInt(p.Hp) +"/" +Mathf.CeilToInt(p.maxHp);
         stats.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "물리력:" + levelUp.physics;
         stats.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "마법력:" + levelUp.magic;
-        stats.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "점프력:Lv" + (stat.JumpCount + 5);
+        stats.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "점프력:Lv" + (stat.JumpCount + 2);
         stats.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "물리공격력:Lv" + (stat.PhysicsDmg+ 5);
         stats.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "마법공격력:Lv" + (stat.MagicDmg+5);
         stats.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "쿨타임:Lv" + (stat.Cooltime+5);
@@ -66,10 +67,19 @@ public class ButtonManager : MonoBehaviour
     }
 
 
+    public void ReGame()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("battle");
+        
+    }
 
 
-
-
+    public void ToMain()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene("Main");
+    }
 
 
 

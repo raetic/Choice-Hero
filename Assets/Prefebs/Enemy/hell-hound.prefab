@@ -178,6 +178,8 @@ MonoBehaviour:
   reselct: {fileID: 1529558284369217962, guid: c22b773b79f5e864d8ab98e37bb8f64c, type: 3}
   isBoss: 0
   isAir: 0
+  isSl: 0
+  notPush: 0
 --- !u!114 &3908298427483886186
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -117,10 +117,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 5
-  DestroyTime: 0
+  DestroyTime: 5
   AttackTime: 0
   destroyCount: 1
   isDestroy: 1
+  n: 0
+  isWood: 0
+  StartTime: 0
+  isNin: 0
+  notPush: 0
+  isMeteo: 0
+  notDestoryInBorder: 0
 --- !u!61 &5580289202025762006
 BoxCollider2D:
   m_ObjectHideFlags: 0

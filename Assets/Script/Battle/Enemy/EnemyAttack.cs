@@ -6,6 +6,7 @@ public class EnemyAttack : MonoBehaviour
 {
     [SerializeField]int dmg;
     public bool notD;
+    public bool oneTime;
     public int GetDmg()
     {
         return dmg;

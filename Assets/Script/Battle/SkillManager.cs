@@ -66,7 +66,8 @@ public class SkillManager : MonoBehaviour
     {
         player = GetComponent<Player>();
         stat = GetComponent<Stat>();
-  
+      
+        
     }
     public void InstSkill(int s)
     {   //if (s == 0) player.GetComponent<Player>().startAttack();
@@ -167,6 +168,12 @@ public class SkillManager : MonoBehaviour
         if (skills[(int)skill.wave] > 9) pen+=3;
         GameObject waveObj = Instantiate(wavePrefebs, player.transform.position + new Vector3(0, 0.3f), transform.rotation);
         waveObj.GetComponent<Rigidbody2D>().AddForce(new Vector2(player.transform.localScale.x, 0) * speed);
+        if (player.transform.position.y > -3.5f)
+        {   waveObj.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -200));
+            if(player.transform.localScale.x==-1)
+            waveObj.transform.rotation = Quaternion.Euler(0, 0,-45);
+            else waveObj.transform.rotation = Quaternion.Euler(0, 0, 45);
+        }
         waveObj.transform.localScale *= new Vector2(player.transform.localScale.x * -1, 1);
         waveObj.transform.localScale *= scale;
         waveObj.GetComponent<Attack>().DmgX(dmg*(1+0.1f*stat.MagicDmg));
@@ -182,27 +189,46 @@ public class SkillManager : MonoBehaviour
         float dmg = 1;
         int n = 3;
         float speed = 150;
-        float cool = 5;
+        float cool =5;
         if (skills[(int)skill.bolt] > 1) speed *= 1.3f;
         if (skills[(int)skill.bolt] > 2) n = 5;
         if (skills[(int)skill.bolt] > 3) scale *= 1.2f;
-        if (skills[(int)skill.bolt] > 4) n = 8;
+        if (skills[(int)skill.bolt] > 4) n = 7;
         if (skills[(int)skill.bolt] > 5) dmg *= 1.15f;
         if (skills[(int)skill.bolt] > 6) cool -= 2;
-        if (skills[(int)skill.bolt] > 7) n = 10;
+        if (skills[(int)skill.bolt] > 7) n = 12;
         if (skills[(int)skill.bolt] > 8) pen += 2;
         if (skills[(int)skill.bolt] > 9) n = 15;
-        for(int i = 0; i <n; i++)
+       if (player.transform.position.y < -3.5f)
         {
-         GameObject boltObj = Instantiate(boltPrefebs, player.transform.position + new Vector3(0, 0.3f),
-         Quaternion.Euler(0,0, (180*i / (n-1))+180)); //투사체의 각도가 자연스럽게 회전값을 넣었다.
-         Vector2 dirVec = new Vector2(Mathf.Cos((Mathf.PI)*i / (n-1)), Mathf.Sin((Mathf.PI) * i / (n-1)));
-            //원을 기준으로 각각의 투사체마다 벡터를 정리
-            boltObj.transform.localScale *= scale;
-            boltObj.GetComponent<Rigidbody2D>().AddForce(dirVec*speed);
-            boltObj.GetComponent<Attack>().DmgX(dmg* (1 + 0.1f * stat.MagicDmg));
-            boltObj.GetComponent<Attack>().SetDestroyCount(pen);
+            for (int i = 0; i < n; i++)
+            {
+                GameObject boltObj = Instantiate(boltPrefebs, player.transform.position + new Vector3(0, 0.3f),
+                Quaternion.Euler(0, 0, (180 * i / (n - 1)) + 180)); //투사체의 각도가 자연스럽게 회전값을 넣었다.
+                Vector2 dirVec = new Vector2(Mathf.Cos((Mathf.PI) * i / (n - 1)), Mathf.Sin((Mathf.PI) * i / (n - 1)));
+                //원을 기준으로 각각의 투사체마다 벡터를 정리
+                boltObj.transform.localScale *= scale;
+                boltObj.GetComponent<Rigidbody2D>().AddForce(dirVec * speed);
+                boltObj.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
+                boltObj.GetComponent<Attack>().SetDestroyCount(pen);
+            }
         }
+        else
+        {
+            for (int i = 0; i < n; i++)
+            {
+                var quaternion = Quaternion.Euler(0, 0, i * (360 / n)+90);
+             var quaternion2 = Quaternion.Euler(0, 0, i * (360 / n) + 270);
+             Vector2 newDirection = quaternion * Vector2.right;
+                GameObject boltObj = Instantiate(boltPrefebs, player.transform.position + new Vector3(0, 0.5f), quaternion2);
+                boltObj.transform.GetComponent<Rigidbody2D>().AddForce(speed * newDirection);
+                //원을 기준으로 각각의 투사체마다 벡터를 정리
+                boltObj.transform.localScale *= scale;
+                boltObj.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
+                boltObj.GetComponent<Attack>().SetDestroyCount(pen);
+            }
+        }
+       
         Invoke("InstBolt", cool/ (1 + 0.1f * stat.Cooltime));
     }
     public void InstRoot()
@@ -256,6 +282,8 @@ public class SkillManager : MonoBehaviour
         if (skills[(int)skill.wood] > 9) n = 12;
         GameObject Obj = Instantiate(woodPrefebs, player.transform.position + new Vector3(0, 0.3f), transform.rotation);
         Obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(player.transform.localScale.x, 0) * -speed);
+        if (player.transform.position.y > -3.5f)
+           Obj.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, -100));
         Obj.transform.localScale *= new Vector2(player.transform.localScale.x * -1, 1);
         Obj.transform.localScale *= woodScale;
         Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.PhysicsDmg));

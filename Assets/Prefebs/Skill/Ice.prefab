@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2714052972225460274}
   - component: {fileID: 2714052972225460273}
   - component: {fileID: 162317827162669582}
+  - component: {fileID: 6374243741321625014}
   m_Layer: 0
   m_Name: Ice
   m_TagString: Attack
@@ -125,6 +126,19 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6374243741321625014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2714052972225460272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11c617ab222083a44a176f2151cedc07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  t: 8
 --- !u!1 &2714052972421862425
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,3 +220,4 @@ MonoBehaviour:
   isNin: 0
   notPush: 0
   isMeteo: 0
+  notDestoryInBorder: 0

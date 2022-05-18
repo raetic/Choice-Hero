@@ -1118,7 +1118,7 @@ MonoBehaviour:
   teleportPrefebs: {fileID: 8364293899797415756, guid: 569a8ae5e850edd48a25450015950a2f,
     type: 3}
   Hp: 0
-  maxHp: 100
+  maxHp: 150
   dmgPr: {fileID: 703140322808896852, guid: f94100e3d40ff4e4882d102514cb8643, type: 3}
   farming: 1
   hpBar: {fileID: 0}

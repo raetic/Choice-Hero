@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
+using System.IO;
+using Newtonsoft.Json;
 public class BattleManager : MonoBehaviour
 {
     int curCenter;
-    float gameTime;
+    public float gameTime;
     [SerializeField] GameObject hellHound;
     [SerializeField] GameObject bat;
     [SerializeField] GameObject nightMare;
@@ -34,11 +35,25 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject exploPrefebs;
     [SerializeField] GameObject[] bossBorder;
     float[] bossend = new float[5];
-
+    [SerializeField] GameObject[] characters;
     public GameObject hpBar;
     public Image hpImage;
     public  Image greenImage;
     public TextMeshProUGUI levelT;
+    int cur;
+
+    [SerializeField] GameObject defeatView;
+    [SerializeField] GameObject[] backs;
+    private void Awake()
+    {
+        string path = Path.Combine(Application.persistentDataPath, "GameData.json");
+        if (File.Exists(path))
+        {
+            string gamedata = File.ReadAllText(path);
+            cur = JsonConvert.DeserializeObject<GameData>(gamedata).curCharacter;
+        }
+        GameObject p = Instantiate(characters[cur], new Vector3(0, -4.3f), transform.rotation);
+    }
     void Start()
     {
       StartCoroutine("Phase1");
@@ -562,5 +577,36 @@ public class BattleManager : MonoBehaviour
         int rand = Random.Range(0, 2);
         GameObject n = Instantiate(golem, SpawnPoint[rand].transform.position, transform.rotation);
         if (rand == 0) n.GetComponent<Golem>().GoRight();
+    }
+    public void Defeated()
+    {
+        Time.timeScale = 0;
+        defeatView.SetActive(true);
+        for (int i = 0; i < 3; i++)
+            backs[i].GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f);
+        StartCoroutine("DefeatCor");
+    }
+    IEnumerator DefeatCor()
+    {
+        string st = "Defeat";
+        Text defeatedText = defeatView.transform.GetChild(0).GetComponent<Text>();
+        defeatedText.text = "";
+        int k = 0;
+        while (k < 6)
+        {
+            defeatedText.text += st[k];
+            k++;
+            yield return new WaitForSecondsRealtime(0.35f);
+        }
+        yield return new WaitForSecondsRealtime(0.35f);
+        int m = (int)gameTime / 60;
+        int s = (int)gameTime % 60;
+        if (m == 0) defeatView.transform.GetChild(1).GetComponent<Text>().text = "버틴 시간: 0:" + string.Format("{0:D2}", s);
+        else defeatView.transform.GetChild(1).GetComponent<Text>().text = "버틴 시간: "+ m + ":" + string.Format("{0:D2}", s);
+       
+       defeatView.transform.GetChild(1).gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(0.5f);
+        defeatView.transform.GetChild(2).gameObject.SetActive(true);
+        defeatView.transform.GetChild(3).gameObject.SetActive(true);
     }
 }

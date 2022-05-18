@@ -149,6 +149,7 @@ public class Player : MonoBehaviour
             GameObject t2 = Instantiate(teleportPrefebs, transform.position + new Vector3(0, 0.5f), transform.rotation);
         }
     }
+    bool isDie;
     public void onHit(int dmg)
     {
         
@@ -156,6 +157,11 @@ public class Player : MonoBehaviour
         GameObject Dmg = Instantiate(dmgPr, transform.position + new Vector3(0, 1.5f), transform.rotation);
         Dmg.GetComponent<Dmg>().SetText(dmg,true);
         Hp -= dmg;
+        if (Hp <= 0&&!isDie)
+        {
+            isDie = true;
+            BM.Defeated();
+        }
     }
     public void ExpUp(float mount)
     {

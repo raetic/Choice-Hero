@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 3
-  DestroyTime: 0
+  DestroyTime: 5
   AttackTime: 0
   destroyCount: 1
   isDestroy: 1

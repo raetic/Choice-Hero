@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour
     public bool isAir;
     [SerializeField] bool isSl;
     [SerializeField] bool notPush;
+    [SerializeField] bool isPortal;
     public void Air(float p)
     {
         rigid.AddForce(Vector2.up * p);
@@ -43,6 +44,11 @@ public class Enemy : MonoBehaviour
     }
     public void Die()
     {
+        if (isPortal)
+        {//보스소환함수
+            Destroy(gameObject);
+            return;
+        }
         if (isSl)
         {
             GetComponent<Slime>().Die();

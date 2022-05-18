@@ -33,6 +33,8 @@ public class Body : MonoBehaviour
             myPlayer.onHit(collision.gameObject.GetComponent<EnemyAttack>().GetDmg());
             if(!collision.gameObject.GetComponent<EnemyAttack>().notD)
             Destroy(collision.gameObject);
+            if (collision.gameObject.GetComponent<EnemyAttack>().oneTime)
+                collision.gameObject.tag = "Untagged";
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
