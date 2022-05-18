@@ -16,8 +16,7 @@ public class Player : MonoBehaviour
     public float Hp;
     public float maxHp;
     [SerializeField] GameObject dmgPr;
-    [SerializeField] int farming;
-    
+    [SerializeField] int farming;    
     [SerializeField] GameObject hpBar;
     [SerializeField] Image hpImage;
     [SerializeField] Image greenImage;
@@ -44,7 +43,10 @@ public class Player : MonoBehaviour
         Level = 1;
         maxExp = 70;
         if (characterNo == 0) startAttack();
-      
+        hpBar = BM.hpBar;
+        hpImage = BM.hpImage;
+        greenImage = BM.greenImage;
+        levelT = BM.levelT;
     }
     public void startAttack()
     {
@@ -61,7 +63,7 @@ public class Player : MonoBehaviour
             SM.InstSmash();
 
             GameObject weapon = Instantiate(myWeapon, weaponPoint.transform.position, transform.rotation);
-            weapon.GetComponent<Attack>().DmgX(1 + 0.1f * stat.PhysicsDmg);
+            weapon.GetComponent<Attack>().DmgX(1);
             yield return new WaitForSeconds(0.2f);
            
             yield return new WaitForSeconds(attackCool-0.3f);

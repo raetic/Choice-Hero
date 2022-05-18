@@ -28,7 +28,7 @@ public class MainSet : MonoBehaviour
             }
         }
     }
-    public void goBattle()
+    public void goBattle() 
     {
         SceneManager.LoadScene("battle");
     }

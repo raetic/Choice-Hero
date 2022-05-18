@@ -66,10 +66,10 @@ public class SkillManager : MonoBehaviour
     {
         player = GetComponent<Player>();
         stat = GetComponent<Stat>();
-        skills[0] = 1;    
+  
     }
     public void InstSkill(int s)
-    {if (s == 0) player.GetComponent<Player>().startAttack();
+    {   //if (s == 0) player.GetComponent<Player>().startAttack();
         if (s == 1) InstWave();
         if (s == 2) InstBolt();
         if (s == 3) InstRoot();
@@ -93,7 +93,7 @@ public class SkillManager : MonoBehaviour
     {
         if (skills[14] > 0) InstClaw();
         if (skills[20] > 0) InstCast();
-        if (skills[0] <2) return;
+        if (skills[0] ==0) return;
         
         GameObject newObj = Instantiate(smashPrefebs, weapon.transform.position, transform.rotation);
         newObj.GetComponent<Attack>().DmgX(1+0.1f*stat.PhysicsDmg);
@@ -158,13 +158,13 @@ public class SkillManager : MonoBehaviour
         float scale = 1;
         if (skills[(int)skill.wave] > 1) pen+=1;
         if (skills[(int)skill.wave] > 2) pen+=1;
-        if (skills[(int)skill.wave] > 3) scale *= 1.5f;
+        if (skills[(int)skill.wave] > 3) scale *= 1.3f;
         if (skills[(int)skill.wave] > 4) pen += 1;
         if (skills[(int)skill.wave] > 5) dmg *= 1.2f;
-        if (skills[(int)skill.wave] > 6) cool -= 1.5f;
+        if (skills[(int)skill.wave] > 6) cool -= 1f;
         if (skills[(int)skill.wave] > 7) speed *= 1.5f ;
-        if (skills[(int)skill.wave] > 8) scale *= 2; ;
-        if (skills[(int)skill.wave] > 9) pen+=5;
+        if (skills[(int)skill.wave] > 8) scale *= 1.5f;
+        if (skills[(int)skill.wave] > 9) pen+=3;
         GameObject waveObj = Instantiate(wavePrefebs, player.transform.position + new Vector3(0, 0.3f), transform.rotation);
         waveObj.GetComponent<Rigidbody2D>().AddForce(new Vector2(player.transform.localScale.x, 0) * speed);
         waveObj.transform.localScale *= new Vector2(player.transform.localScale.x * -1, 1);
@@ -185,7 +185,7 @@ public class SkillManager : MonoBehaviour
         float cool = 5;
         if (skills[(int)skill.bolt] > 1) speed *= 1.3f;
         if (skills[(int)skill.bolt] > 2) n = 5;
-        if (skills[(int)skill.bolt] > 3) scale *= 1.3f;
+        if (skills[(int)skill.bolt] > 3) scale *= 1.2f;
         if (skills[(int)skill.bolt] > 4) n = 8;
         if (skills[(int)skill.bolt] > 5) dmg *= 1.15f;
         if (skills[(int)skill.bolt] > 6) cool -= 2;
@@ -207,18 +207,18 @@ public class SkillManager : MonoBehaviour
     }
     public void InstRoot()
     {
-        float cool = 7;
+        float cool = 6;
         float dmg = 1;
         float scale = 1;
         int n = 2;
-        if (skills[(int)skill.root] > 1) scale *= 1.3f;
+        if (skills[(int)skill.root] > 1) scale *= 1.2f;
         if (skills[(int)skill.root] > 2) n = 3;
         if (skills[(int)skill.root] > 3) n = 4;
-        if (skills[(int)skill.root] > 4) scale *= 1.3f;
-        if (skills[(int)skill.root] > 5) dmg *= 1.3f;
+        if (skills[(int)skill.root] > 4) scale *= 1.2f;
+        if (skills[(int)skill.root] > 5) dmg *= 1.4f;
         if (skills[(int)skill.root] > 6) n = 5;
         if (skills[(int)skill.root] > 7) cool -= 1f;
-        if (skills[(int)skill.root] > 8) scale *= 1.3f;
+        if (skills[(int)skill.root] > 8) scale *= 1.2f;
         if (skills[(int)skill.root] > 9) n = 7;    
         Collider2D[] cols = Physics2D.OverlapBoxAll(new Vector2(transform.position.x, -4.3f), new Vector2(12, 1),0 ,enemyMask);
         var nearCol = cols.OrderBy(obj =>
@@ -238,7 +238,7 @@ public class SkillManager : MonoBehaviour
     }
     public void InstWood()
     {
-        float cool = 5;
+        float cool = 4;
         float dmg = 1;
         float woodScale = 1;
         float speed = 300;
@@ -295,15 +295,15 @@ public class SkillManager : MonoBehaviour
         float cool = 4.5f;
         float dmg = 1;
         float scale = 1;
-        int pen = 0;
+        int pen = 2;
         float speed = 400;
-        if (skills[no] > 1) pen++;
+        if (skills[no] > 1) cool--;
         if (skills[no] > 2) pen++;
         if (skills[no] > 3) scale*=1.3f;
         if (skills[no] > 4) pen++;
-        if (skills[no] > 5) dmg *= 1.3f;
+        if (skills[no] > 5) dmg *= 1.2f;
         if (skills[no] > 6) pen++;
-        if (skills[no] > 7) scale *= 1.3f;
+        if (skills[no] > 7) scale *= 1.2f;
         if (skills[no] > 8) cool--;
         if (skills[no] > 9) pen += 2;
 
@@ -335,7 +335,7 @@ public class SkillManager : MonoBehaviour
         float cool = 10;
         float dmg = 1;
         float scale = 1;
-        float speed = 300;
+        float speed = 400;
         if (skills[no] > 1) dmg *= 1.5f;
         if (skills[no] > 2) scale *= 1.2f;
         if (skills[no] > 3) speed *= 1.2f;
@@ -382,7 +382,7 @@ public class SkillManager : MonoBehaviour
     {
        
         int no = 8;
-        float cool = 1f;
+        float cool = 1.5f;
         float dmg = 1;
         float scale = 1;
         float speed = 250;
@@ -390,13 +390,13 @@ public class SkillManager : MonoBehaviour
         int pen = 0;
         curIce++;
 
-        if (skills[no] > 1) pen++;
+        if (skills[no] > 1) cool -= 0.3f;
         if (skills[no] > 2) scale *= 1.2f;
-        if (skills[no] > 3) pen++;
+        if (skills[no] > 3) dmg *= 1.2f;
         if (skills[no] > 4) cool -= 0.3f;
         if (skills[no] > 5) n = 6;
         if (skills[no] > 6) pen++;
-        if (skills[no] > 7) dmg *= 1.5f;
+        if (skills[no] > 7) dmg *= 1.2f;
         if (skills[no] > 8) scale *= 1.3f;
         if (skills[no] > 9) { n = 8; cool -= 0.3f; }
         if (curIce == n) curIce = 0;
@@ -424,7 +424,7 @@ public class SkillManager : MonoBehaviour
     {
 
         int no = 10;
-        float cool = 5.5f;
+        float cool = 5f;
         float dmg = 1;
         float scale = 1;
         float power = 550;
@@ -561,12 +561,12 @@ public class SkillManager : MonoBehaviour
         int no = 14;
         float dmg = 3;
         int n = 1;
-        float size = 3;
+        float size = 4;
         if (skills[no] > 1) dmg *= 1.2f;
-        if (skills[no] > 2) size = 4;
+        if (skills[no] > 2) size = 5;
         if (skills[no] > 3) n++;
         if (skills[no] > 4) dmg *= 1.2f;
-        if (skills[no] > 5) size = 5;
+        if (skills[no] > 5) size = 6;
         if (skills[no] > 6) n++;
         if (skills[no] > 7) dmg *= 1.2f;
         if (skills[no] > 8) size = 7;
@@ -588,15 +588,15 @@ public class SkillManager : MonoBehaviour
     {
         int no = 15;
         float dmg = 1;
-        int n = 3;
+        int n = 2;
         float scale = 1;
         float cool = 1;
         float speed = 200;
         if (skills[no] > 1) speed += 50;
-        if (skills[no] > 2) n = 5;
+        if (skills[no] > 2) n = 4;
         if (skills[no] > 3) scale *= 1.2f;
         if (skills[no] > 4) speed+=50;
-        if (skills[no] > 5) n = 7;
+        if (skills[no] > 5) n = 6;
         if (skills[no] > 6) scale *= 1.2f;
         if (skills[no] > 7) dmg *= 1.3f;
         if (skills[no] > 8) cool = 0.7f;
@@ -700,17 +700,17 @@ public class SkillManager : MonoBehaviour
     {
         int no = 18;
         float dmg = 1;
-        int n = 20;
+        int n = 15;
         float scale = 1;
         int pen = 0;
         if (skills[no] > 1) dmg *= 1.2f;
         if (skills[no] > 2) dmg *= 1.2f;
-        if (skills[no] > 3) n = 30;
+        if (skills[no] > 3) n = 25;
         if (skills[no] > 4) scale *= 1.5f;
         if (skills[no] > 6) dmg *= 1.2f;
         if (skills[no] > 7) dmg *= 1.2f;
         if (skills[no] > 8) pen++;
-        if (skills[no] > 9) n = 40;
+        if (skills[no] > 9) n = 35;
         for (int i = 0; i <= n; i++)
         {
             GameObject Obj = Instantiate(stPrefebs, transform.position, Quaternion.Euler(new Vector3(0, 0, 45))); 

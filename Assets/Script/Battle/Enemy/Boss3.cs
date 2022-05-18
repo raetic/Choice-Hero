@@ -70,7 +70,7 @@ public class Boss3 : MonoBehaviour
         for (int i = -1; i < 2; i++)
         {
             GameObject fire = Instantiate(AttackPrefebs, AttackPoint.transform.position, transform.rotation);
-            fire.GetComponent<Rigidbody2D>().AddForce(new Vector2(20,i*Random.Range(1,4))*8*v);
+            fire.GetComponent<Rigidbody2D>().AddForce(new Vector2(14,i*Random.Range(1,4))*8*v);
             fire.transform.localScale = new Vector3(-v, 1, 0);
         }
     }

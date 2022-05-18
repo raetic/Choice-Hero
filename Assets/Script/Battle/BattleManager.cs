@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class BattleManager : MonoBehaviour
@@ -19,6 +20,7 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject elf2;
     [SerializeField] GameObject slime;
     [SerializeField] GameObject skull;
+    [SerializeField] GameObject skull2;
     [SerializeField] GameObject fireskull;
     [SerializeField] GameObject[] boss;
     bool bossFhase;
@@ -33,6 +35,10 @@ public class BattleManager : MonoBehaviour
     [SerializeField] GameObject[] bossBorder;
     float[] bossend = new float[5];
 
+    public GameObject hpBar;
+    public Image hpImage;
+    public  Image greenImage;
+    public TextMeshProUGUI levelT;
     void Start()
     {
       StartCoroutine("Phase1");
@@ -152,9 +158,9 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                MakeHardNightmare();
+                MakeNightMare();
             }
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(1f);
         }
         StartCoroutine("Phase7");
     }
@@ -172,7 +178,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeHardNightmare();
             }
-            yield return new WaitForSeconds(0.8f);
+            yield return new WaitForSeconds(1f);
         }
         StartCoroutine("Phase8");
     }
@@ -195,7 +201,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeHardNightmare();
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.8f);
         }
         StartCoroutine("Phase9");
     }
@@ -217,7 +223,7 @@ public class BattleManager : MonoBehaviour
             {
                 MakeEyes();
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.6f);
         }
         StartCoroutine("Boss2");
     }
@@ -437,7 +443,7 @@ public class BattleManager : MonoBehaviour
             }
             else
             {
-                MakeSkull();
+                MakeSkull2();
             }
             yield return new WaitForSeconds(0.2f);
         }
@@ -449,13 +455,17 @@ public class BattleManager : MonoBehaviour
         while (gameTime < bossend[0] + 240)
         {
             p++;
-            if (p % 2 == 0)
+            if (p % 3 == 0)
+            {
+                MakeElf2();
+            }
+            else if (p % 2 == 0)
             {
                 MakeGolem();
             }
             else
             {
-                MakeElf2();
+                MakeSkull2();
             }
             yield return new WaitForSeconds(0.3f);
         }
@@ -516,6 +526,12 @@ public class BattleManager : MonoBehaviour
     {
         int rand = Random.Range(0, 2);
         GameObject n = Instantiate(skull, SpawnPoint[rand].transform.position, transform.rotation);
+        if (rand == 0) n.GetComponent<Nightmare>().GoRight();
+    }
+    public void MakeSkull2()
+    {
+        int rand = Random.Range(0, 2);
+        GameObject n = Instantiate(skull2, SpawnPoint[rand].transform.position, transform.rotation);
         if (rand == 0) n.GetComponent<Nightmare>().GoRight();
     }
     public void MakeElf()

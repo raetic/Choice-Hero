@@ -23,7 +23,7 @@ public class LevelUp : MonoBehaviour
     [SerializeField] TextMeshProUGUI reselctCount;
     int[] curReward = new int[3];
    public int magic;
-   public int physics=1;
+   public int physics;
     [SerializeField] GameObject player;
     private void Awake()
     {
@@ -37,7 +37,7 @@ public class LevelUp : MonoBehaviour
         UpList.Add(101);
         UpList.Add(105);
         UpList.Add(106);
-        skillCount = 1;
+
     }
     IEnumerator SelectCor()
     {
@@ -189,14 +189,14 @@ public class LevelUp : MonoBehaviour
             sm.InstSkill(skill);
             skillCount++;
         }
+        sm.Skills[skill]++;
         if (skillCount == 8)
         {
-           foreach(var value in UpList)
+           for(int i = UpList.Count-1; i >= 0; i--)
             {
-                if (value < 100)
+                if (UpList[i] < 100 && sm.Skills[UpList[i]] == 0)
                 {
-                    if(sm.Skills[value]==0)
-                    UpList.Remove(value);
+                    UpList.RemoveAt(i);
                 }
             }
         }
@@ -207,7 +207,7 @@ public class LevelUp : MonoBehaviour
       
         if (data.skillData[skill].type == 0) PhysicsUp();
         if (data.skillData[skill].type == 1) MagicUp();
-        sm.Skills[skill]++;
+     
         if (skill == 19)
         {
             sm.MyolLevelUp();
@@ -229,8 +229,8 @@ public class LevelUp : MonoBehaviour
     {
         magic++;
         if (magic == 1)
-            UpList.Add(102);
-        if (magic == 3)
+        { UpList.Add(102); }
+        if (magic == 3&&skillCount<8)
         {
            
             UpList.Add(3);
@@ -241,7 +241,7 @@ public class LevelUp : MonoBehaviour
             UpList.Add(103);
             
         }
-        if (magic == 7)
+        if (magic == 7 && skillCount < 8)
         {
             UpList.Add(5);
             UpList.Add(10);
@@ -251,18 +251,18 @@ public class LevelUp : MonoBehaviour
           
           UpList.Add(108);
         }
-        if (magic == 15)
+        if (magic == 15 && skillCount < 8)
         {
             UpList.Add(11);
             UpList.Add(13);
 
         }
-        if (magic == 25)
+        if (magic == 25 && skillCount < 8)
         {
             UpList.Add(15);
             UpList.Add(16);
         }
-        if (magic == 40)
+        if (magic == 40 && skillCount < 8)
         {
             UpList.Add(21);
             UpList.Add(22);
@@ -274,8 +274,11 @@ public class LevelUp : MonoBehaviour
         if (physics == 3)
         {
             UpList.Add(107);
-            UpList.Add(4);
-            UpList.Add(6);
+            if (skillCount < 8)
+            {
+                UpList.Add(4);
+                UpList.Add(6);
+            }
         }
         if (physics == 5)
         {
@@ -283,7 +286,7 @@ public class LevelUp : MonoBehaviour
             UpList.Add(104);
           
         }
-        if (physics == 7)
+        if (physics == 7 && skillCount < 8)
         {
             UpList.Add(7);
             UpList.Add(9);
@@ -294,17 +297,17 @@ public class LevelUp : MonoBehaviour
             UpList.Add(100);
            
         }
-        if (physics == 15)
+        if (physics == 15 && skillCount < 8)
         {
             UpList.Add(12);
             UpList.Add(14);
         }
-        if (physics == 25)
+        if (physics == 25 && skillCount < 8)
         {
             UpList.Add(18);
             UpList.Add(17);
         }
-        if (physics == 40)
+        if (physics == 40 && skillCount < 8)
         {
             UpList.Add(19);
             UpList.Add(20);
@@ -385,4 +388,28 @@ public class Data
             new skilldata("체인라이트닝","모든 적을 공격하는 전기마법을 씁니다.",1),
             new skilldata("해수 폭발","땅 밑 깊은곳에서부터 끓는 해수를 폭발시킵니다.",1),
    };
+    public struct characterData
+    {
+        public string Name;
+        public string content;
+        public bool open;
+        public int[] s;
+        public characterData(string name, string content, bool open,int[] s)
+        {
+            Name = name;
+            this.content = content;
+            this.open = open;
+            this.s = s;
+        }
+    }
+    public characterData[] CharacterData = new characterData[7] {
+     new characterData("기사","가장 무난한 기사입니다. 본인은 알까요? 모든 능력치가 모든 사람의 딱 평균이라는 사실을.",true,new int[]{0,0,0,0,0,0,0,0}),
+     new characterData("마법사","초보 마법사입니다. 마법력이 있다고는 하지만... 아직 다른 면이 많이 부족해보이네요.",true,new int[]{0,-1,2,2,-1,-1,0,-1}),
+    new characterData("학자","배우는게 가장 행복한 학자입니다. 남들보다 성장이 훨씬 빠르지만... 그만큼 조금 둔해 보이네요.",true,new int[]{0,0,0,0,-2,-2,5,1}),
+    new characterData("광전사","힘, 힘, 힘, 그리고 힘. 그를 설명할 때 힘을 뺀다면 뭐가 남을까요?",true,new int[]{0,6,-3,-1,1,-3,0,0}),
+    new characterData("닌자","문답무용. 속전속결.",true,new int[]{2,-1,-1,0,4,-4,0,2}),
+    new characterData("기마병","전장에 그와 그의 말이 뜨면, 적들은 모조리 도망을 치려고 합니다. 소용없다는 것을 알면서도 말이죠.",true,new int[]{-1,1,-2,-1,0,3,-2,4}),
+     new characterData("언데드","어쩌다가 살아난지 모르겠지만, 이상하게 사람들보단 주문 외우는 속도가 훨씬 빠르네요.",true,new int[]{0,-2,-2,10,-1,-1,-2,-2}),
+
+    };
 }

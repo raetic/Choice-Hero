@@ -47,14 +47,14 @@ public class ButtonManager : MonoBehaviour
         stats.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = "체력:" + Mathf.CeilToInt(p.Hp) +"/" +Mathf.CeilToInt(p.maxHp);
         stats.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = "물리력:" + levelUp.physics;
         stats.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = "마법력:" + levelUp.magic;
-        stats.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "점프력:Lv" + stat.JumpCount;
-        stats.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "물리공격력:Lv" + stat.PhysicsDmg;
-        stats.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "마법공격력:Lv" + stat.MagicDmg;
-        stats.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "쿨타임:Lv" + stat.Cooltime;
-        stats.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text = "공격속도:Lv" + stat.AttackSpeed;
-        stats.transform.GetChild(8).GetComponent<TextMeshProUGUI>().text = "방어력:Lv" + stat.AttackedDmg;
-        stats.transform.GetChild(9).GetComponent<TextMeshProUGUI>().text = "경험치획득:Lv" + stat.Exp;
-        stats.transform.GetChild(10).GetComponent<TextMeshProUGUI>().text = "이동속도:Lv" + stat.Speed;
+        stats.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "점프력:Lv" + (stat.JumpCount + 5);
+        stats.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "물리공격력:Lv" + (stat.PhysicsDmg+ 5);
+        stats.transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "마법공격력:Lv" + (stat.MagicDmg+5);
+        stats.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = "쿨타임:Lv" + (stat.Cooltime+5);
+        stats.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text = "공격속도:Lv" + (stat.AttackSpeed+5);
+        stats.transform.GetChild(8).GetComponent<TextMeshProUGUI>().text = "방어력:Lv" + (stat.AttackedDmg+5);
+        stats.transform.GetChild(9).GetComponent<TextMeshProUGUI>().text = "경험치획득:Lv" + (stat.Exp+5);
+        stats.transform.GetChild(10).GetComponent<TextMeshProUGUI>().text = "이동속도:Lv" + (stat.Speed+5);
         if (stat.Speed == 0) stats.transform.GetChild(11).gameObject.SetActive(false);
         else stats.transform.GetChild(11).GetComponent<TextMeshProUGUI>().text = "텔레포트:Lv" + stat.Teleport;
     }
