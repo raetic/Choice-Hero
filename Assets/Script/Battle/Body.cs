@@ -44,7 +44,7 @@ public class Body : MonoBehaviour
         {
 
             myPlayer.ExpUp(collision.gameObject.GetComponent<Exp>().mount);
-            Destroy(collision.gameObject);
+            ExpController.instance.ReturnObjectToQueue(collision.gameObject.GetComponent<Exp>());
         }
         if (collision.gameObject.tag == "Ax")
         {
