@@ -62,13 +62,13 @@ public class Boss2 : MonoBehaviour
     IEnumerator Attack2Cor()
     {
         int t = 0;
-        while (t < 16)
+        while (t < 32)
         {
             t++;
             int rand = Random.Range(-600, 600);
             float x = GameObject.FindGameObjectWithTag("MainCamera").transform.position.x;
             Instantiate(boss2prefebs, new Vector3(x + rand / 100, 3.2f), transform.rotation);
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
     void Attack()

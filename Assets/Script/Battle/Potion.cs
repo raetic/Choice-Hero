@@ -42,6 +42,7 @@ public class Potion : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            SfxControl.Instance.UseSfxHp();
             collision.gameObject.GetComponent<Player>().HpUp(value);
             Destroy(gameObject);
         }

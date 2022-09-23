@@ -9,6 +9,7 @@ public class portal : MonoBehaviour
     int change;
     bool up;
     float time;
+    [SerializeField] GameObject boss4;
     void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
@@ -55,5 +56,10 @@ public class portal : MonoBehaviour
         else time = 0;
         sprite.color = new Color(c[0], c[1], c[2]);
     }
-
+    public void Summon()
+    {
+        GameObject boss = Instantiate(boss4, transform.position, transform.rotation);
+        boss.GetComponent<Boss4>().setTransX(transform.position.x);
+        Destroy(gameObject);
+    }
 }

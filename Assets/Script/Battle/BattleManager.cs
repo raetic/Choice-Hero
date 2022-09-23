@@ -44,14 +44,20 @@ public class BattleManager : MonoBehaviour
 
     [SerializeField] GameObject defeatView;
     [SerializeField] GameObject[] backs;
+    [SerializeField] GameObject bossPortal;
+    [SerializeField] GameObject clearView;
+
+
+    [SerializeField] BgmRandomPlay BGM;
     private void Awake()
     {
-        string path = Path.Combine(Application.persistentDataPath, "GameData.json");
-        if (File.Exists(path))
-        {
-            string gamedata = File.ReadAllText(path);
-            cur = JsonConvert.DeserializeObject<GameData>(gamedata).curCharacter;
-        }
+        GameData gameData;
+        string path = Path.Combine(Application.persistentDataPath, "MyData.json");
+     
+            string battleData = File.ReadAllText(path);
+            gameData = JsonUtility.FromJson<GameData>(battleData);
+
+        cur = gameData.curCharacter;
         GameObject p = Instantiate(characters[cur], new Vector3(0, -4.3f), transform.rotation);
     }
     void Start()
@@ -77,6 +83,7 @@ public class BattleManager : MonoBehaviour
             MakeHellHound();
             yield return new WaitForSeconds(1.3f);
         }
+        //Defeated();
         StartCoroutine("Phase2");
     }
     IEnumerator Phase2()
@@ -397,6 +404,19 @@ public class BattleManager : MonoBehaviour
         StartCoroutine("BorderOff");
         StartCoroutine("Phase14");
     }
+    IEnumerator Boss4()
+    {
+        BossSummon();
+        bossPhase = true;
+        int rand = Random.Range(0, 2);
+        GameObject b = Instantiate(bossPortal,new Vector3(GameObject.FindGameObjectWithTag("Player").transform.position.x,1), transform.rotation);
+        while (bossPhase)
+        {
+            yield return new WaitForSeconds(1);
+        }
+        Clear();
+    }
+   
     IEnumerator Phase14()
     {
         int p = 0;
@@ -484,7 +504,7 @@ public class BattleManager : MonoBehaviour
             }
             yield return new WaitForSeconds(0.3f);
         }
-        StartCoroutine("Boss3");
+        StartCoroutine("Boss4");
     }
     // Update is called once per frame
     void Update()
@@ -581,6 +601,7 @@ public class BattleManager : MonoBehaviour
     public void Defeated()
     {
         Time.timeScale = 0;
+        BGM.defeat();
         defeatView.SetActive(true);
         for (int i = 0; i < 3; i++)
             backs[i].GetComponent<SpriteRenderer>().color = new Color(0.2f, 0.2f, 0.2f);
@@ -608,5 +629,33 @@ public class BattleManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.5f);
         defeatView.transform.GetChild(2).gameObject.SetActive(true);
         defeatView.transform.GetChild(3).gameObject.SetActive(true);
+    }
+    public void Clear()
+    {
+        Time.timeScale = 0;
+        clearView.SetActive(true);
+
+        StartCoroutine("ClearCor");
+    }
+    IEnumerator ClearCor()
+    {
+        string st = "Victory";
+        Text defeatedText = clearView.transform.GetChild(0).GetComponent<Text>();
+        defeatedText.text = "";
+        int k = 0;
+        while (k < 7)
+        {
+            defeatedText.text += st[k];
+            k++;
+            yield return new WaitForSecondsRealtime(0.35f);
+        }
+        yield return new WaitForSecondsRealtime(0.35f);
+        int m = (int)gameTime / 60;
+        int s = (int)gameTime % 60;
+       clearView.transform.GetChild(1).GetComponent<Text>().text = "클리어 시간 " + m + ":" + string.Format("{0:D2}", s);
+
+        clearView.transform.GetChild(1).gameObject.SetActive(true);
+        yield return new WaitForSecondsRealtime(0.5f);
+        clearView.transform.GetChild(2).gameObject.SetActive(true);
     }
 }

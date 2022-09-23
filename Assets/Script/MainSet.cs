@@ -7,8 +7,8 @@ using System.IO;
 using Newtonsoft.Json;
 public class MainSet : MonoBehaviour
 {
-    [SerializeField] GameObject[] mountain;
-    [SerializeField] GameObject[] ground;
+    [SerializeField] MeshRenderer mountain;
+    [SerializeField] MeshRenderer ground;
     [SerializeField] TextMeshProUGUI[] stats;
     [SerializeField] TextMeshProUGUI charaterName;
     [SerializeField] TextMeshProUGUI characterContent;
@@ -21,37 +21,30 @@ public class MainSet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        for(int i = 0; i < 3; i++)
-        {
-            mountain[i].transform.Translate(new Vector3(0.2f, 0, 0) * Time.deltaTime);
-            if (mountain[i].GetComponent<RectTransform>().position.x > 18)
-            {
+      
+            mountain.material.mainTextureOffset += new Vector2(0.05f * Time.deltaTime, 0);
 
-                mountain[i].transform.position -= new Vector3(17.7778f * 2, 0);
-            }
-            ground[i].transform.Translate(new Vector3(1, 0, 0) * Time.deltaTime);
-           
-            if (ground[i].GetComponent<RectTransform>().position.x > 18)
-            {
-               
-                ground[i].transform.position -= new Vector3(17.7778f*2, 0);
-            }
-        }
+        ground.material.mainTextureOffset += new Vector2(0.2f * Time.deltaTime, 0);
+
+
+
+
     }
     public void goBattle()
     {
-        string gd = JsonConvert.SerializeObject(gameData);
-        string path = Path.Combine(Application.persistentDataPath, "GameData.json");
-        File.WriteAllText(path, gd);
+        string battleData = JsonUtility.ToJson(gameData);
+        string path = Path.Combine(Application.persistentDataPath, "MyData.json");
+        File.WriteAllText(path, battleData);
         SceneManager.LoadScene("battle");
     }
     private void Awake()
     {
-        string path = Path.Combine(Application.persistentDataPath, "GameData.json");
+        string path = Path.Combine(Application.persistentDataPath, "MyData.json");
         if (File.Exists(path))
         {
-            string gamedata = File.ReadAllText(path);
-            gameData = JsonConvert.DeserializeObject<GameData>(gamedata);
+            string battleData = File.ReadAllText(path);
+            gameData= JsonUtility.FromJson<GameData>(battleData);
+
         }
     }
     public void OnCharacterView()

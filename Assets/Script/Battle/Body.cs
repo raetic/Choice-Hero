@@ -42,13 +42,15 @@ public class Body : MonoBehaviour
 
         if (collision.gameObject.tag == "Exp")
         {
-
+            
+            SfxControl.Instance.UseSfxre();
             myPlayer.ExpUp(collision.gameObject.GetComponent<Exp>().mount);
             Destroy(collision.gameObject);
         }
         if (collision.gameObject.tag == "Ax")
         {
 
+            SfxControl.Instance.UseSfxHp();
             Destroy(collision.gameObject);
             myPlayer.SM.GetAx();
 

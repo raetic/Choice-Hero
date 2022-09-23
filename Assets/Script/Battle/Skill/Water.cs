@@ -21,8 +21,8 @@ public class Water : MonoBehaviour
         int rand = Random.Range(0, 2);
         GameObject w = null;
         if (rand==0)
-        w= Instantiate(waters[rand], transform.position + new Vector3(0,1.2f*scale), transform.rotation);
-        else w = Instantiate(waters[rand], transform.position + new Vector3(0, 1 * scale), transform.rotation);
+        w= Instantiate(waters[rand], transform.position + new Vector3(0,1.2f*scale-0.2f), transform.rotation);
+        else w = Instantiate(waters[rand], transform.position + new Vector3(0, 1 * scale-0.2f), transform.rotation);
         w.GetComponent<Attack>().DmgX(dmg);
         w.transform.localScale *= scale;
         Destroy(gameObject);

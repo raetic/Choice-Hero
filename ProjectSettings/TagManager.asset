@@ -12,6 +12,7 @@ TagManager:
   - EnemyAttack
   - Ax
   - Reselect
+  - SFX
   layers:
   - Default
   - TransparentFX

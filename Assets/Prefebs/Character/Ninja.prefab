@@ -1126,6 +1126,9 @@ MonoBehaviour:
   greenImage: {fileID: 0}
   levelT: {fileID: 0}
   weaponPoint: {fileID: 8459202450645525438}
+  jumpSound: {fileID: 8300000, guid: fd7a064e38253d1468ce00c2df8ecceb, type: 3}
+  telSound: {fileID: 0}
+  levelUpSound: {fileID: 8300000, guid: b8476b6d87432c646ac96f08c519692c, type: 3}
   SM: {fileID: 0}
   isRight: 0
   isLeft: 0

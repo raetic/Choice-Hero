@@ -146,8 +146,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 031b735c98b19f548b084a7f86c31074, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 10
-  maxHp: 10
+  hp: 5
+  maxHp: 5
   dmg: {fileID: 703140322808896852, guid: f94100e3d40ff4e4882d102514cb8643, type: 3}
   Atk: 5
   expMount: 35
@@ -160,6 +160,8 @@ MonoBehaviour:
   isBoss: 0
   isAir: 0
   isSl: 0
+  notPush: 0
+  isPortal: 0
 --- !u!114 &1931645643695168530
 MonoBehaviour:
   m_ObjectHideFlags: 0

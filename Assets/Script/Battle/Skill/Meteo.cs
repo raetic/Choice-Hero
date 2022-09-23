@@ -23,6 +23,7 @@ public class Meteo : MonoBehaviour
     {
         if (collision.gameObject.tag == "Back")
         {
+            SfxControl.Instance.UseSfxSkill(16);
             MakeExplosion();
         }
     }

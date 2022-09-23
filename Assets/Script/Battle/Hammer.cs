@@ -16,6 +16,7 @@ public class Hammer : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Back") {
+            SfxControl.Instance.UseSfxSkill(12);
             Collider2D[] cols = Physics2D.OverlapBoxAll(transform.position-new Vector3(0,-0.5f), new Vector2(size, 1), 0, LayerMask.GetMask("Enemy"));
          for(int i = 0; i < cols.Length; i++)
             {

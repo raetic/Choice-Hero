@@ -162,7 +162,8 @@ MonoBehaviour:
   isBoss: 1
   isAir: 0
   isSl: 0
-  notPush: 0
+  notPush: 1
+  isPortal: 0
 --- !u!50 &5576760488926296826
 Rigidbody2D:
   serializedVersion: 4

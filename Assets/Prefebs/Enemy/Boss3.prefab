@@ -62,9 +62,10 @@ MonoBehaviour:
   - {fileID: 6238152693025510619, guid: 2c33b0b4325b29049a75a993e39a3b47, type: 3}
   reselct: {fileID: 1529558284369217962, guid: c22b773b79f5e864d8ab98e37bb8f64c, type: 3}
   isBoss: 1
-  isAir: 0
+  isAir: 1
   isSl: 0
   notPush: 1
+  isPortal: 0
 --- !u!50 &9124034328838520515
 Rigidbody2D:
   serializedVersion: 4
@@ -353,6 +354,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmg: 3
   notD: 1
+  oneTime: 0
 --- !u!95 &1495216093536931455
 Animator:
   serializedVersion: 3

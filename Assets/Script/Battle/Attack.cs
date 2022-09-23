@@ -76,6 +76,7 @@ public class Attack : MonoBehaviour
         }
         if (isNin)
         {
+            
             GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             Collider2D[] cols = Physics2D.OverlapBoxAll(transform.position, new Vector2(10, 10), 0, LayerMask.GetMask("Enemy"));
             var nearObj = cols.OrderBy(obj =>
@@ -84,9 +85,9 @@ public class Attack : MonoBehaviour
             }).ToList();
             Vector2 v = Vector2.zero;
             if (cols.Length>1)
-                v = nearObj[1].transform.position - transform.position;       
+                v = nearObj[1].transform.position - transform.position;
             if (cols.Length > 1)
-               GetComponent<Rigidbody2D>().AddForce(v.normalized * 400);
+            { GetComponent<Rigidbody2D>().AddForce(v.normalized * 400); SfxControl.Instance.UseSfxSkill(6); }
             else
             {
                 Destroy(gameObject);

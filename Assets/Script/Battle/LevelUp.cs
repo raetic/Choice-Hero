@@ -22,8 +22,8 @@ public class LevelUp : MonoBehaviour
     List<int> UpList = new List<int>();
     [SerializeField] TextMeshProUGUI reselctCount;
     int[] curReward = new int[3];
-   public int magic;
-   public int physics;
+    public int magic;
+    public int physics;
     [SerializeField] GameObject player;
     private void Awake()
     {
@@ -35,9 +35,7 @@ public class LevelUp : MonoBehaviour
         UpList.Add(1);
         UpList.Add(2);
         UpList.Add(101);
-        UpList.Add(105);
-        UpList.Add(106);
-
+        UpList.Add(105);       
     }
     IEnumerator SelectCor()
     {
@@ -228,6 +226,10 @@ public class LevelUp : MonoBehaviour
     public void MagicUp()
     {
         magic++;
+        if (magic + physics == 20)
+        {
+            UpList.Add(106);
+        }
         if (magic == 1)
         { UpList.Add(102); }
         if (magic == 3&&skillCount<8)
@@ -271,6 +273,10 @@ public class LevelUp : MonoBehaviour
     public void PhysicsUp()
     {
         physics++;
+        if (magic + physics == 20)
+        {
+            UpList.Add(106);
+        }
         if (physics == 3)
         {
             UpList.Add(107);

@@ -66,8 +66,7 @@ public class SkillManager : MonoBehaviour
     {
         player = GetComponent<Player>();
         stat = GetComponent<Stat>();
-      
-        
+        //InstWater();
     }
     public void InstSkill(int s)
     {   //if (s == 0) player.GetComponent<Player>().startAttack();
@@ -92,6 +91,7 @@ public class SkillManager : MonoBehaviour
     }
     public void InstSmash()
     {
+        SfxControl.Instance.UseSfxSkill(0);
         if (skills[14] > 0) InstClaw();
         if (skills[20] > 0) InstCast();
         if (skills[0] ==0) return;
@@ -152,6 +152,7 @@ public class SkillManager : MonoBehaviour
 
     public void InstWave()
     {
+        SfxControl.Instance.UseSfxSkill(1);
         float cool = 3;
         float speed = -400;
         int pen = 0;
@@ -184,6 +185,7 @@ public class SkillManager : MonoBehaviour
     }
     public void InstBolt()
     {
+        SfxControl.Instance.UseSfxSkill(2);
         float scale = 1;
         int pen = 0;
         float dmg = 1;
@@ -233,6 +235,7 @@ public class SkillManager : MonoBehaviour
     }
     public void InstRoot()
     {
+        SfxControl.Instance.UseSfxSkill(3);
         float cool = 6;
         float dmg = 1;
         float scale = 1;
@@ -255,7 +258,7 @@ public class SkillManager : MonoBehaviour
         {
             if (i == n) break;
             GameObject Obj = Instantiate(rootPrefebs, new Vector3(nearCol[i].gameObject.transform.position.x
-                ,-3.8f), transform.rotation);
+                ,-4f), transform.rotation);
             Obj.transform.localScale *= new Vector2(player.transform.localScale.x * -1, 1);
             Obj.transform.localScale *= scale;
             Obj.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
@@ -264,6 +267,7 @@ public class SkillManager : MonoBehaviour
     }
     public void InstWood()
     {
+        SfxControl.Instance.UseSfxSkill(4);
         float cool = 4;
         float dmg = 1;
         float woodScale = 1;
@@ -293,6 +297,7 @@ public class SkillManager : MonoBehaviour
     }
     public void InstThun()
     {
+        SfxControl.Instance.UseSfxSkill(5);
         int no = 5;
         float cool = 6;
         float dmg = 1;
@@ -319,6 +324,7 @@ public class SkillManager : MonoBehaviour
     }
     public void InstNinja()
     {
+        SfxControl.Instance.UseSfxSkill(6);
         int no = 6;
         float cool = 4.5f;
         float dmg = 1;
@@ -358,6 +364,7 @@ public class SkillManager : MonoBehaviour
     }
     public void InstAx()
     {
+        SfxControl.Instance.UseSfxSkill(7);
         haveAx = false;
         int no = 7;
         float cool = 10;
@@ -408,7 +415,7 @@ public class SkillManager : MonoBehaviour
     int curIce;
     public void InstIce()
     {
-       
+        SfxControl.Instance.UseSfxSkill(8);
         int no = 8;
         float cool = 1.5f;
         float dmg = 1;
@@ -450,33 +457,33 @@ public class SkillManager : MonoBehaviour
     }
     public void InstRageGround()
     {
-
+        SfxControl.Instance.UseSfxSkill(10);
         int no = 10;
-        float cool = 5f;
+        float cool = 5.5f;
         float dmg = 1;
         float scale = 1;
-        float power = 550;
+        float power = 300;
         int n = 1;
 
 
-        if (skills[no] > 1) power = 1200;
+        if (skills[no] > 1) power = 500;
         if (skills[no] > 2) scale *= 1.5f;
         if (skills[no] > 3) cool -= 1f;
         if (skills[no] > 4) dmg *= 1.5f;
         if (skills[no] > 5) n = 2;
-        if (skills[no] > 6) power = 1500;
+        if (skills[no] > 6) power = 800;
         if (skills[no] > 7) cool -= 1f;
         if (skills[no] > 8) scale *= 1.3f;
-        if (skills[no] > 9) power = 1800;
+        if (skills[no] > 9) power = 1200;
 
        
-            GameObject Obj = Instantiate(groundPrefebs,new Vector2(transform.position.x+transform.localScale.x*-3,-3.5f), transform.rotation);
+            GameObject Obj = Instantiate(groundPrefebs,new Vector2(transform.position.x+transform.localScale.x*-3,-3.7f), transform.rotation);
          Obj.transform.localScale = transform.localScale;
         Obj.transform.localScale *= scale;
             Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
             Obj.transform.GetComponent<RageGround>().upPower = power;
         if (n == 2) {
-            GameObject Obj2 = Instantiate(groundPrefebs, new Vector2(transform.position.x + transform.localScale.x * 3, -3.5f), transform.rotation);
+            GameObject Obj2 = Instantiate(groundPrefebs, new Vector2(transform.position.x + transform.localScale.x * 3, -3.7f), transform.rotation);
             Obj2.transform.localScale = new Vector2(transform.localScale.x*-1,1);
             Obj2.transform.localScale *= scale;
             Obj2.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
@@ -486,7 +493,7 @@ public class SkillManager : MonoBehaviour
     }
     public void InstHoly()
     {
-
+        
         int no = 11;
         float cool = 8f;
         float dmg = 1;
@@ -523,6 +530,7 @@ public class SkillManager : MonoBehaviour
         while (t < n)
         {
             t++;
+            SfxControl.Instance.UseSfxSkill(11);
             GameObject Obj = Instantiate(holyPrefebs, v, transform.rotation);
             Obj.transform.localScale *= scale;
             Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.MagicDmg));
@@ -707,6 +715,7 @@ public class SkillManager : MonoBehaviour
         for (int i = 0; i < n; i++)
         {         
             GameObject Obj = Instantiate(swordPrefebs, transform.position, Quaternion.Euler(new Vector3(0, 0, 45)));
+            if (i % 2 == 0) SfxControl.Instance.UseSfxSkill(17);
             Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.PhysicsDmg));
             Obj.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 600);
             if (over) Obj.GetComponent<SwordRain>().over = true;
@@ -733,12 +742,12 @@ public class SkillManager : MonoBehaviour
         int pen = 0;
         if (skills[no] > 1) dmg *= 1.2f;
         if (skills[no] > 2) dmg *= 1.2f;
-        if (skills[no] > 3) n = 25;
-        if (skills[no] > 4) scale *= 1.5f;
+        if (skills[no] > 3) n = 20;
+        if (skills[no] > 4) scale *= 1.2f;
         if (skills[no] > 6) dmg *= 1.2f;
         if (skills[no] > 7) dmg *= 1.2f;
         if (skills[no] > 8) pen++;
-        if (skills[no] > 9) n = 35;
+        if (skills[no] > 9) n = 30;
         for (int i = 0; i <= n; i++)
         {
             GameObject Obj = Instantiate(stPrefebs, transform.position, Quaternion.Euler(new Vector3(0, 0, 45))); 
@@ -747,7 +756,8 @@ public class SkillManager : MonoBehaviour
             Obj.transform.localScale *= scale;
             Obj.GetComponent<Attack>().SetDestroyCount(pen);
             Obj.transform.GetComponent<Attack>().DmgX(dmg * (1 + 0.1f * stat.PhysicsDmg));
-            Obj.GetComponent<Rigidbody2D>().AddForce(dirVec * 550);            
+            Obj.GetComponent<Rigidbody2D>().AddForce(dirVec * 550);
+            if (i % 3 == 0) SfxControl.Instance.UseSfxSkill(6);
             float t = 2 / n;
             yield return new WaitForSeconds(t);
         }
@@ -816,6 +826,7 @@ public class SkillManager : MonoBehaviour
         if (skills[no] > 6) dmg *= 1.2f;
         if (skills[no] > 7) scale *= 1.3f;
         smashCount = 0;
+        SfxControl.Instance.UseSfxSkill(20);
         Instantiate(castPrefebs[0], transform.position+new Vector3(0,0.5f,0), transform.rotation).transform.localScale*=scale;
         Collider2D[] cols = Physics2D.OverlapBoxAll(transform.position, new Vector2(6,6)*scale, 0, enemyMask);
         if (skills[no] <= 9)
@@ -839,6 +850,7 @@ public class SkillManager : MonoBehaviour
     }
     public void InstChain()
     {
+        SfxControl.Instance.UseSfxSkill(21);
         float dmg = 3f;
         int no = 21;
         float cool = 3;

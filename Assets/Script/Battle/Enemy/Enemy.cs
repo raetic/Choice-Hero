@@ -37,6 +37,7 @@ public class Enemy : MonoBehaviour
     }
     public void OnHit(int dmgf)
     {
+        SfxControl.Instance.UseSfxEnemyHit();
         GameObject dmg2 = Instantiate(dmg, transform.position + new Vector3(0, 0.5f), transform.rotation);
         dmg2.GetComponent<Dmg>().SetText(dmgf, false);
         hp -= dmgf;
@@ -45,8 +46,9 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         if (isPortal)
-        {//보스소환함수
-            Destroy(gameObject);
+        {
+            GetComponent<portal>().Summon();
+           
             return;
         }
         if (isSl)

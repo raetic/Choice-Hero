@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     [SerializeField] Image greenImage;
     [SerializeField] TextMeshProUGUI levelT;
     [SerializeField] GameObject weaponPoint;
+    [SerializeField] AudioClip jumpSound;
+    [SerializeField] AudioClip telSound;
+    [SerializeField] AudioClip levelUpSound;
     int Level;
     float curExp;
     float maxExp;
@@ -33,6 +36,8 @@ public class Player : MonoBehaviour
     float teleportCool;
     public int reselect;
     public int characterNo;
+
+
     private void Start()
     {   
         rigid = GetComponent<Rigidbody2D>();
@@ -47,6 +52,7 @@ public class Player : MonoBehaviour
         hpImage = BM.hpImage;
         greenImage = BM.greenImage;
         levelT = BM.levelT;
+     
     }
     public void startAttack()
     {
@@ -57,14 +63,13 @@ public class Player : MonoBehaviour
         while(true)
         {
             float attackCool = 1.5f / (1 + 0.1f * stat.AttackSpeed);
-            anim.SetTrigger("Attack");                           
-            yield return new WaitForSeconds(0.1f);
-            
+            anim.SetTrigger("Attack");
+          
+            yield return new WaitForSeconds(0.05f);            
             SM.InstSmash();
-
             GameObject weapon = Instantiate(myWeapon, weaponPoint.transform.position, transform.rotation);
             weapon.GetComponent<Attack>().DmgX(1);
-            yield return new WaitForSeconds(0.2f);
+            yield return new WaitForSeconds(0.25f);
            
             yield return new WaitForSeconds(attackCool-0.3f);
         }
@@ -109,12 +114,14 @@ public class Player : MonoBehaviour
     public void Jump()
     {
        
-            if ((2 + stat.JumpCount) > curJumpCount)
-            {
-                curJumpCount++;
+        if ((2 + stat.JumpCount) > curJumpCount)
+        {
+            SfxControl.Instance.UseSfxJump();
+            curJumpCount++;
                 rigid.velocity = Vector2.zero;
                 rigid.AddForce(Vector2.up * jumpPower);
-            }
+            
+         }
        
            
         
@@ -128,6 +135,7 @@ public class Player : MonoBehaviour
        
 
     }
+  
     public void Tel()
     {
         if (teleportCool <= 0)
@@ -168,7 +176,8 @@ public class Player : MonoBehaviour
         
         curExp += Mathf.RoundToInt(mount*(1+0.1f*stat.Exp));
         if (curExp >= maxExp)
-        {           
+        {
+            SfxControl.Instance.UseSfxLevelUp();
             LevelUp();           
         }
     }
