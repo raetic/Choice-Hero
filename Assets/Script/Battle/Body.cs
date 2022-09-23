@@ -45,7 +45,7 @@ public class Body : MonoBehaviour
             
             SfxControl.Instance.UseSfxre();
             myPlayer.ExpUp(collision.gameObject.GetComponent<Exp>().mount);
-            Destroy(collision.gameObject);
+            ExpController.instance.ReturnObjectToQueue(collision.gameObject.GetComponent<Exp>());
         }
         if (collision.gameObject.tag == "Ax")
         {

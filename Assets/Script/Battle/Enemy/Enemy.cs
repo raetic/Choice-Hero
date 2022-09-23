@@ -53,12 +53,11 @@ public class Enemy : MonoBehaviour
         }
         if (isSl)
         {
-            GetComponent<Slime>().Die();
-            
+            GetComponent<Slime>().Die();           
             return;
         }
-        GameObject e = Instantiate(exp, transform.position, transform.rotation);
-        e.GetComponent<Exp>().setMount(expMount);
+        Exp exp = ExpController.instance.GetObject(transform);
+        exp.setMount(expMount);
         if (!isBoss&&!isSl)
         {
             int rand = Random.Range(0, 100);

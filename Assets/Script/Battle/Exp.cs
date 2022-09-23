@@ -5,7 +5,6 @@ using UnityEngine;
 public class Exp : MonoBehaviour
 {
     public int mount;
-    bool come;
     GameObject target;
     float time;
     public void Start()
@@ -14,6 +13,7 @@ public class Exp : MonoBehaviour
     }
     public void setMount(int mo)
     {
+        time = 0;
         mount = mo;
     }
     private void Update()
